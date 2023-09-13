@@ -1,0 +1,50 @@
+h3.QrcodePage-divider-10 {
+    font-size: 1rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+}
+
+.makeStyles-cardBody-29.QrcodePage-spinnerWrapper-15 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.makeStyles-cardBody-29.QrcodePage-spinnerWrapper-15  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.MuiButton-label {
+    font-size: 1rem;
+}
+
+img#qrcodeImg {
+    max-width: 250px;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+	img#qrcodeImg {
+        max-width: 150px;
+    }
+    
+	   h3.QrcodePage-divider-10 {
+		   font-size: 1rem;
+		   font-weight: 400;
+		   text-transform: uppercase;
+		   font-family: 'Roboto', sans-serif;
+		   
+	   }
+       .QrcodePage-qrcodeCard-14 {
+        padding: 5px;
+       }
+       .MuiButton-label {
+           font-size: 0.8rem;
+       }
+
+       img#obbaLogo {
+        max-width: 80px;
+       }
+   }

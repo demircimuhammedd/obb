@@ -1,3 +1,9 @@
 .MuiFormHelperText-root {
 	color: '#db0011 !important';
 }
+
+#___gatsby {
+    background: linear-gradient(rgb(0 0 0 / 80%), rgb(0 0 0 / 60%)), url(https://images.pexels.com/photos/2888679/pexels-photo-2888679.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);
+	background-repeat: no-repeat;
+	background-size: cover;
+}

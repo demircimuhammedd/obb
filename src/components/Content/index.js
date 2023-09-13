@@ -225,15 +225,10 @@ const QrcodePage = ({ classes }) => {
 										<CircularProgress className={classes.spinner} size={80} />
 									) : (
 										<img
-											style={{
-												height: '100%',
-												width: '100%',
-												display: 'block',
-												maxWidth: '300px',
-											}}
 											className={classes.imgCardTop}
 											src={qrcodeImg}
 											alt="Card-img-cap"
+											id="qrcodeImg"
 										/>
 									)}
 									<h3 style={{ textAlign: 'center', fontSize: '1.5rem' }}>
@@ -251,8 +246,8 @@ const QrcodePage = ({ classes }) => {
 				</GridItem>
 			</GridContainer>
 			<div className={classes.logoWrapper}>
-				<img src={ObbaLogo} className={classes.obbaLogoStyle} />
-				<img src={Logo} className={classes.logoStyle} />
+				<img src={ObbaLogo} className={classes.obbaLogoStyle} id='obbaLogo' />
+				<img src={Logo} className={classes.logoStyle} id="ollaLogo" />
 			</div>
 		</div>
 	)

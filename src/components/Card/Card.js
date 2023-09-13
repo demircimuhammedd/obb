@@ -1,3 +1,4 @@
+import "./Card.css";
 // @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles'
 // nodejs library that concatenates classes
