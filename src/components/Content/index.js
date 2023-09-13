@@ -160,7 +160,7 @@ const QrcodePage = ({ classes }) => {
 									Taking queue is close. Existing queue customer can check status below.
 								</h3>
 							)}
-							<CardBody className={classes.spinnerWrapper}>
+							<CardBody className={classes.spinnerWrapper} >
 								{queueSettings.takingQueueProcess && !queueNumber && !serverErrorMsg ? (
 									<QueueDialog
 										setQueueNumber={setQueueNumber}
@@ -210,7 +210,7 @@ const QrcodePage = ({ classes }) => {
 							{/* )} */}
 							{/* </CardBody> */}
 							{queueSettings.takingQueueProcess && queueSettings.qrCodeFBDisplay && (
-								<h3 className={`${classes.divider} ${classes.colorRed}`} style={{ marginTop: 0 }}>
+								<h3 className={`${classes.divider} ${classes.colorWhite}`} style={{ marginTop: 0 }}>
 									Or
 								</h3>
 							)}
@@ -233,7 +233,7 @@ const QrcodePage = ({ classes }) => {
 									)}
 									<h3 style={{ textAlign: 'center', fontSize: '1.5rem' }}>
 										QR Code will be refresh in{' '}
-										<span className={`${classes.counterNum} ${classes.colorRed}`}>{counter}</span>{' '}
+										<span className={`${classes.counterNum}`}>{counter}</span>{' '}
 										second.
 									</h3>
 								</CardBody>
@@ -245,7 +245,7 @@ const QrcodePage = ({ classes }) => {
 					</Card>
 				</GridItem>
 			</GridContainer>
-			<div className={classes.logoWrapper}>
+			<div className={classes.logoWrapper} id='logoRow'>
 				<img src={ObbaLogo} className={classes.obbaLogoStyle} id='obbaLogo' />
 				<img src={Logo} className={classes.logoStyle} id="ollaLogo" />
 			</div>

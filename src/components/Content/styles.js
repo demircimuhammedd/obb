@@ -84,13 +84,22 @@ const qrcodePageStyle = {
 	// 	display: 'none',
 	// },
 	colorRed: {
-		color: 'red',
-		fontSize: '1.5rem',
+		color: '#ff3644',
+		textTransform: 'uppercase',
+	},
+	colorOrange: {
+		color: '#ff5531',
+		textTransform: 'uppercase',
+	},
+	colorWhite: {
+		color: '#fafafa',
+		textTransform: 'uppercase',
 	},
 	counterNum: {
 		fontSize: '2rem',
-		fontWeight: 100,
+		fontWeight: 800,
 		paddingLeft: '3px',
+		color: '#ff5656',
 	},
 	logoWrapper: {
 		display: 'flex',
@@ -106,7 +115,7 @@ const qrcodePageStyle = {
 		marginLeft: '0px',
 	},
 	obbaLogoStyle: {
-		maxWidth: '130px',
+		maxWidth: '80px',
 		bottom: '0',
 		left: 0,
 		marginBottom: '0px',

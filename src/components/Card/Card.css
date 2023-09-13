@@ -1,9 +1,36 @@
 h3.QrcodePage-divider-10 {
     font-size: 1rem;
-    font-weight: 400;
+    font-weight: 600;
     text-transform: uppercase;
     font-family: 'Roboto', sans-serif;
+    color: #
 }
+
+.makeStyles-card-25 {
+    width: 100%;
+    border: 0;
+    display: flex;
+    position: relative;
+    font-size: .875rem;
+    min-width: 0;
+    word-wrap: break-word;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    margin-top: 30px;
+    border-radius: 6px;
+    margin-bottom: 30px;
+    flex-direction: column;
+    background-color: #5b090f7d;
+}
+
+span.QrcodePage-counterNum-422.QrcodePage-colorRed-419 {
+    color: #ff5656;
+    font-weight: 800;
+}
+
+#logoRow {
+    padding-bottom: 0;
+    align-items: flex-start;
+  }
 
 .makeStyles-cardBody-29.QrcodePage-spinnerWrapper-15 {
     display: flex;
@@ -25,26 +52,47 @@ img#qrcodeImg {
     max-width: 250px;
 }
 
+button.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary:hover {
+    background: #009be5;
+    color: #0a071a;
+}
+
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
-	img#qrcodeImg {
+    img#qrcodeImg {
         max-width: 150px;
     }
-    
-	   h3.QrcodePage-divider-10 {
-		   font-size: 1rem;
-		   font-weight: 400;
-		   text-transform: uppercase;
-		   font-family: 'Roboto', sans-serif;
-		   
-	   }
-       .QrcodePage-qrcodeCard-14 {
-        padding: 5px;
-       }
-       .MuiButton-label {
-           font-size: 0.8rem;
-       }
 
-       img#obbaLogo {
+    h3.QrcodePage-divider-10 {
+        font-size: 1rem;
+        font-weight: 400;
+        text-transform: uppercase;
+        font-family: 'Roboto', sans-serif;
+
+    }
+
+    .QrcodePage-qrcodeCard-14 {
+        padding: 5px;
+    }
+
+    .MuiButton-label {
+        font-size: 0.8rem;
+    }
+
+    img#obbaLogo {
         max-width: 80px;
-       }
-   }
+    }
+
+    .QrcodePage-qrcodeCard-96 {
+        padding: 0;
+    }
+
+    img#obbaLogo {
+        max-width: 60px;
+        height: auto;
+    }
+
+    img#ollaaLogo {
+        max-width: 60px;
+        height: auto;
+    }
+}
