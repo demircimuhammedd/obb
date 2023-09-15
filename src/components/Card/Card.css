@@ -1,8 +1,9 @@
 h3.QrcodePage-divider-10 {
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 400;
     text-transform: uppercase;
     font-family: 'Roboto', sans-serif;
+    margin-top: 20px;
 }
 
 .makeStyles-card-25 {
@@ -18,27 +19,32 @@ h3.QrcodePage-divider-10 {
     border-radius: 6px;
     margin-bottom: 30px;
     flex-direction: column;
-    background-color: #5b090f7d;
+    background-color: #0b0001cf;
 }
 
 span.QrcodePage-counterNum-422.QrcodePage-colorRed-419 {
-    color: #e01c1c;
-    font-weight: 800;
+    color: #e40313;
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 .QrcodePage-qrcodeCard-14 {
-    padding: 30px;
-    background: #260507c7;
+    background: rgba(94, 2, 9, 0.29);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 #logoRow {
     padding-bottom: 10px;
     align-items: center;
-  }
+}
 
 img#obbaLogo {
-max-width: 80px;
-height: auto;
+    max-width: 60px;
+    height: auto;
 }
 
 img#ollaaLogo {
@@ -52,48 +58,83 @@ img#ollaaLogo {
     justify-content: center;
 }
 
-div.makeStyles-cardBody-29.QrcodePage-spinnerWrapper-15  {
+.QrcodePage-counterNum-22 {
+    color: #ff5656;
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-family: 'Caveat', cursive;
+}
+
+div.makeStyles-cardBody-29.QrcodePage-spinnerWrapper-15 {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.MuiButton-label {
-    font-size: 1rem;
+span.MuiButton-label {
+    font-size: 12px;
+    font-family: 'Caveat', cursive;
+    font-weight: 600;
+    letter-spacing: normal;
 }
 
 img#qrcodeImg {
-    max-width: 250px;
+    max-width: 200px;
     margin: 15px 0;
 }
 
+form.QrcodePage-form-7 {
+    padding: 10px 0;
+    position: relative;
+}
+
+.makeStyles-card-27.QrcodePage-qrcodeCard-14 {
+    padding: 0;
+    top: 25px;
+}
+
 h3.QrcodePage-divider-10.QrcodePage-colorWhite-20 {
-    font-size: 1.25rem;
     margin: 20px 0;
     font-weight: 400;
-    color: #bebebe;
+}
+
+h3.qr-code-counter {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    text-transform: uppercase;
 }
 
 button.MuiButton-outlinedPrimary {
     color: #fafafa;
     font-family: 'Roboto', sans-serif;
     text-transform: capitalize;
-    border: 1px solid #e01c1c;
+    font-size: 14px;
+    width: 85%;
+    border: 1px solid #e40313;
 }
 
 button.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary:hover {
-    background: #e01c1c;
-    border: .5px solid #e01c1c;
+    background: #e40313;
+    border: .5px solid #e40313;
+}
+
+div#dividerRow h3 {
+    font-size: 1.5rem;
+    text-align: center;
+    font-family: 'Caveat', cursive;
 }
 
 div#queueRow {
     display: flex;
     flex-direction: row;
+    margin: 0 auto;
     justify-content: space-between;
 }
 
 div#queueRow button {
-    margin: 10px 20px;
+    margin: 0 10px;
+    width: fit-content;
 }
 
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
@@ -105,7 +146,6 @@ div#queueRow button {
         font-size: 1rem;
         text-transform: uppercase;
         font-family: 'Roboto', sans-serif;
-
     }
 
     .QrcodePage-qrcodeCard-14 {
@@ -128,5 +168,29 @@ div#queueRow button {
     img#ollaaLogo {
         max-width: 60px;
         height: auto;
+    }
+}
+
+
+@media screen and (min-width: 1024px) {
+    h3.QrcodePage-divider-10 {
+        font-size: 1rem;
+        margin: 20px 0;
+    }
+
+    span.MuiButton-label {
+        font-size: 1.5rem;
+        font-family: 'Caveat', cursive;
+        font-weight: 600;
+        letter-spacing: normal;
+    }
+
+    div#queueRow button {
+        margin: 0 20px;
+        width: fit-content;
+    }
+
+    div#dividerRow {
+        padding-top: 10px;
     }
 }

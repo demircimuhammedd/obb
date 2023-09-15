@@ -152,7 +152,7 @@ const QrcodePage = ({ classes }) => {
 					<Card className={classes.qrcodeCard}>
 						<form className={classes.form}>
 							{queueSettings.takingQueueProcess ? (
-								<h3 className={`${classes.divider} ${classes.colorRed}`}>
+								<h3 className={`${classes.divider} ${classes.fscaz}`}>
 									Fill the form to take the queue.
 								</h3>
 							) : (
@@ -213,12 +213,14 @@ const QrcodePage = ({ classes }) => {
 							{/* )} */}
 							{/* </CardBody> */}
 							{queueSettings.takingQueueProcess && queueSettings.qrCodeFBDisplay && (
-								<h3 className={`${classes.divider} ${classes.colorWhite}`} style={{ marginTop: 0 }}>
+								<div id='dividerRow'>
+								<h3 className={`${classes.divider} ${classes.dividerText}`} style={{ marginTop: 0 }}>
 									Or
 								</h3>
+								</div>
 							)}
 							{queueSettings.takingQueueProcess && queueSettings.qrCodeFBDisplay && (
-								<h3 className={`${classes.divider} ${classes.colorRed}`}>
+								<h3 className={`${classes.divider} ${classes.colorWhite}`}>
 									Scan to Take and Check Queue status with FB Message anywhere. ({outletFullname})
 								</h3>
 							)}
@@ -234,10 +236,10 @@ const QrcodePage = ({ classes }) => {
 											id="qrcodeImg"
 										/>
 									)}
-									<h3 style={{ textAlign: 'center', fontSize: '1.5rem' }}>
-										QR Code will be refresh in{' '}
+									<h3 class="qr-code-counter">
+										QR Code will be refresh in {' '}
 										<span className={`${classes.counterNum}`}>{counter}</span>{' '}
-										second.
+										 second.
 									</h3>
 								</CardBody>
 							)}

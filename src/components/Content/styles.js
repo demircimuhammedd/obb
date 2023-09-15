@@ -93,12 +93,15 @@ const qrcodePageStyle = {
 	},
 	colorWhite: {
 		color: '#fafafa',
+	},
+	dividerText: {
+		color: '#ff8072',
 		textTransform: 'uppercase',
 	},
 	counterNum: {
 		fontSize: '2rem',
 		fontWeight: 800,
-		paddingLeft: '3px',
+		paddingRight: '3px',
 		color: '#ff5656',
 	},
 	logoWrapper: {
@@ -108,7 +111,7 @@ const qrcodePageStyle = {
 		paddingBottom: '20px',
 	},
 	logoStyle: {
-		maxWidth: '150px',
+		maxWidth: '120px',
 		bottom: '0',
 		right: '10px',
 		marginBottom: '0px',
