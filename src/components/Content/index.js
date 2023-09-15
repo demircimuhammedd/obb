@@ -160,7 +160,9 @@ const QrcodePage = ({ classes }) => {
 									Taking queue is close. Existing queue customer can check status below.
 								</h3>
 							)}
+
 							<CardBody className={classes.spinnerWrapper} >
+							<div className='queueCardRow' id="queueRow">
 								{queueSettings.takingQueueProcess && !queueNumber && !serverErrorMsg ? (
 									<QueueDialog
 										setQueueNumber={setQueueNumber}
@@ -192,6 +194,7 @@ const QrcodePage = ({ classes }) => {
 										setEnqErrorMsg={setEnqErrorMsg}
 									/>
 								)}
+								</div>
 							</CardBody>
 							{/* <CardBody className={classes.spinnerWrapper}>
 								{/* {!queueNumber && !serverErrorMsg ? (

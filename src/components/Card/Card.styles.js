@@ -29,7 +29,8 @@ const cardStyle = {
 			marginTop: '0px',
 			paddingTop: '0px',
 		},
-	},
+	}
+
 }
 
 export default cardStyle

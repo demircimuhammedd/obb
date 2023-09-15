@@ -108,14 +108,13 @@ const qrcodePageStyle = {
 		paddingBottom: '20px',
 	},
 	logoStyle: {
-		maxWidth: '160px',
+		maxWidth: '150px',
 		bottom: '0',
 		right: '10px',
 		marginBottom: '0px',
 		marginLeft: '0px',
 	},
 	obbaLogoStyle: {
-		maxWidth: '80px',
 		bottom: '0',
 		left: 0,
 		marginBottom: '0px',
