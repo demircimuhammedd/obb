@@ -111,12 +111,12 @@ button.MuiButton-outlinedPrimary {
     text-transform: capitalize;
     font-size: 14px;
     width: 85%;
-    border: 1px solid #e40313;
+    border: 1px solid #e40312d9;
 }
 
 button.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary:hover {
-    background: #e40313;
-    border: .5px solid #e40313;
+    background: #e403126f;
+    border: .5px solid #e403126f;
 }
 
 div#dividerRow h3 {
