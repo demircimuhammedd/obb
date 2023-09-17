@@ -1,5 +1,5 @@
 h3.QrcodePage-divider-10 {
-    font-size: 1rem;
+    font-size: 14px;
     font-weight: 500;
     text-transform: uppercase;
     font-family: 'Roboto', sans-serif;
@@ -21,6 +21,7 @@ h3.QrcodePage-divider-10 {
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     border-radius: 10px;
+    max-width: max-content;
     border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
@@ -73,7 +74,7 @@ span.MuiButton-label {
 }
 
 img#qrcodeImg {
-    max-width: 200px;
+    max-width: 150px;
     box-shadow: 2px 2px 4px 6px #24000330;
 }
 
@@ -104,6 +105,7 @@ button.MuiButton-outlinedPrimary {
     color: #fafafa;
     font-family: 'Roboto', sans-serif;
     text-transform: capitalize;
+    background-color: transparent;
     font-size: 14px;
     width: -webkit-fit-content;
     width: -moz-fit-content;
@@ -114,14 +116,14 @@ button.MuiButton-outlinedPrimary {
 button.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary:hover {
     background: #ff2836d9;
     border: .5px solid #ff2836d9;
-    box-shadow: 0 0 20px #ff2836d9;
+    box-shadow: 0 0 10px #ff2836d9;
 }
 
 div#dividerRow h3 {
-    font-size: 1rem;
+    font-size: 1.5rem;
     text-align: center;
     font-family: 'Caveat', cursive;
-    color: #ff5656;
+    color: #ff7575;
     font-weight: bolder;
     text-shadow: 1px 1px 2px #bb5c5c;
 }
@@ -174,10 +176,15 @@ div#queueRow button {
     }
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 768px) and (orientation: portrait) {
     h3.QrcodePage-divider-10 {
         font-size: 1rem;
         margin: 20px auto;
+    }
+
+    img#qrcodeImg {
+        max-width: 250px;
+        box-shadow: 2px 2px 4px 6px #24000330;
     }
 
     span.MuiButton-label {
