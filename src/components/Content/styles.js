@@ -95,7 +95,7 @@ const qrcodePageStyle = {
 		color: '#fafafa',
 	},
 	dividerText: {
-		color: '#ff8072',
+		color: '#ff5656',
 		textTransform: 'uppercase',
 	},
 	counterNum: {
