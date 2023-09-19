@@ -29,8 +29,20 @@ h3#headerInfo {
 }
 
 .makeStyles-card-28 {
-    max-width: 100%;
-    height: auto;
+    color: rgba(255, 255, 255, 0.87);
+    width: 100%;
+    border: 0;
+    display: flex;
+    position: relative;
+    font-size: .875rem;
+    min-width: 0;
+    word-wrap: break-word;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    margin-top: 30px;
+    border-radius: 6px;
+    margin-bottom: 30px;
+    flex-direction: column;
+    background: linear-gradient(48deg, #06060670 60%, #3f070778 40%);
 }
 
 .QrcodePage-qrcodeCard-14 {

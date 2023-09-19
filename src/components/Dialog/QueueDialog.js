@@ -7,7 +7,6 @@ import TextField from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/core/styles'
 import { PhoneNumberFormat, PhoneNumberUtil } from 'google-libphonenumber'
 import React, { useState } from 'react'
-import ReactDOM from 'react-dom';
 import { HOST, getOutletFullname, outletAbbr } from '../../utils/config'
 
 const useStyles = makeStyles(theme => ({
@@ -258,26 +257,10 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 	}
 
 	return (
-		<div>
-			<Button
-				variant="outlined"
-				color="primary"
-				onClick={handleClickOpen}
-				style={{ fontSize: '2rem', padding: '20px 30px' }}
-			>
-				Take Queue
-			</Button>
-			<Dialog
-				open={open}
-				onClose={handleClose}
-				aria-labelledby="alert-dialog-title"
-				aria-describedby="alert-dialog-description"
-			>
-				<DialogTitle id="alert-dialog-title">New Queue</DialogTitle>
-				<DialogContent>
-					<form autoComplete="off" onSubmit={e => handleSubmit(e, newQueue)} className={classes.root}>
+		<form autoComplete="off" onSubmit={e => handleSubmit(e, newQueue)} className={classes.root}>
 						<div>
 							<TextField
+								margin="normal"
 								fullWidth
 								variant="outlined"
 								id="name"
@@ -289,6 +272,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 								autoFocus={true}
 							/>
 							<TextField
+								margin="normal"
 								fullWidth
 								variant="outlined"
 								id="phoneNo"
@@ -298,12 +282,15 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 								onChange={handleChange}
 								helperText={phoneErrorMsg}
 								required
+								autoFocus={true}
+
 							/>
 							<TextField
+								margin="normal"
 								fullWidth
 								variant="outlined"
 								id="paxNo"
-								label="Pax"
+								label="Party Size"
 								type="number"
 								value={newQueue.paxNo}
 								onChange={handleChange}
@@ -335,9 +322,6 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 							</Button>
 						</div>
 					</form>
-				</DialogContent>
-				<DialogActions></DialogActions>
-			</Dialog>
-		</div>
+
 	)
 }
