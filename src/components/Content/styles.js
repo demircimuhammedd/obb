@@ -1,5 +1,6 @@
 import { container } from '../GeneralStyle/index.js'
 
+
 const qrcodePageStyle = {
 	container: {
 		...container,

@@ -8,7 +8,6 @@ const customInputStyle = {
 	},
 	underline: {
 		'&:hover:not($disabled):before,&:before': {
-			borderColor: '#D2D2D2 !important',
 			borderWidth: '1px !important',
 		},
 		'&:after': {
@@ -35,7 +34,7 @@ const customInputStyle = {
 	},
 	labelRoot: {
 		...defaultFont,
-		color: '#AAAAAA !important',
+		color: '#fafafa !important',
 		fontWeight: '400',
 		fontSize: '14px',
 		lineHeight: '1.42857',
@@ -55,12 +54,12 @@ const customInputStyle = {
 		paddingTop: '27px',
 		position: 'relative',
 		'& svg,& .fab,& .far,& .fal,& .fas,& .material-icons': {
-			color: '#495057',
+			color: '#f7f9fa',
 		},
 		display: 'none',
 	},
 	input: {
-		color: '#495057',
+		color: '#f7f9fa',
 		'&,&::placeholder': {
 			fontSize: '14px',
 			fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
@@ -69,7 +68,7 @@ const customInputStyle = {
 			opacity: '1',
 		},
 		'&::placeholder': {
-			color: '#AAAAAA',
+			color: '#fafafa',
 		},
 	},
 	whiteInput: {

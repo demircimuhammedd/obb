@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/core/styles'
 import { PhoneNumberFormat, PhoneNumberUtil } from 'google-libphonenumber'
 import React, { useState } from 'react'
+import ReactDOM from 'react-dom';
 import { HOST, getOutletFullname, outletAbbr } from '../../utils/config'
 
 const useStyles = makeStyles(theme => ({
@@ -277,7 +278,6 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 					<form autoComplete="off" onSubmit={e => handleSubmit(e, newQueue)} className={classes.root}>
 						<div>
 							<TextField
-								margin="normal"
 								fullWidth
 								variant="outlined"
 								id="name"
@@ -289,7 +289,6 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 								autoFocus={true}
 							/>
 							<TextField
-								margin="normal"
 								fullWidth
 								variant="outlined"
 								id="phoneNo"
@@ -301,7 +300,6 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 								required
 							/>
 							<TextField
-								margin="normal"
 								fullWidth
 								variant="outlined"
 								id="paxNo"
