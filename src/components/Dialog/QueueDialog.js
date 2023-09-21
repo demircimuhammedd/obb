@@ -314,10 +314,10 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 							{renderMemberRegister()} */}
 						</div>
 						<div className={classes.buttonWrapper}>
-							<Button onClick={handleClose} color="primary">
+							<Button onClick={handleClose} color="primary" id='cancelBtn'>
 								Cancel
 							</Button>
-							<Button type="submit" color="primary" disabled={buttonHidden}>
+							<Button type="submit" color="primary" disabled={buttonHidden} id="addBtn">
 								Add
 							</Button>
 						</div>

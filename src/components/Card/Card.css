@@ -1,3 +1,7 @@
+body {
+    line-height: normal;
+}
+
 h3.QrcodePage-divider-10 {
     font-size: 14px;
     font-weight: 500;
@@ -42,16 +46,17 @@ h3#headerInfo {
     border-radius: 6px;
     margin-bottom: 30px;
     flex-direction: column;
-    background: linear-gradient(48deg, #06060670 60%, #3f070778 40%);
+    background: linear-gradient(48deg, #06060670 50%, #3f070778 50%)
 }
 
 .QrcodePage-qrcodeCard-14 {
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
-    border-radius: 10px;
+    border-radius: 50px;
     max-width: -webkit-max-content;
-    max-width: max-content;
+    max-width: 80vw;
+    /* padding: 50px; */
     border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
@@ -65,6 +70,9 @@ div#socialIcons {
 #logoRow {
     padding-bottom: 10px;
     align-items: center;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
 }
 
 img#obbaLogo {
@@ -81,12 +89,15 @@ img#ollaaLogo {
 input::-webkit-input-placeholder {
     color: #ff7575;
 }
+
 input:-ms-input-placeholder {
     color: #ff7575;
 }
+
 input::-ms-input-placeholder {
     color: #ff7575;
 }
+
 input::placeholder {
     color: #ff7575;
 }
@@ -139,6 +150,17 @@ input#paxNo {
     margin: 8px auto;
 }
 
+button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary {
+    border: 1px solid #ff5244;
+    margin: 0 10px;
+    color: #fafafa;
+}
+
+button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary:hover {
+    background-color: #ff5244;
+}
+
+
 /* ----------------- Divider Row */
 .makeStyles-cardBody-29.QrcodePage-spinnerWrapper-15 {
     display: flex;
@@ -173,22 +195,12 @@ span.MuiButton-label {
 img#qrcodeImg {
     max-width: 150px;
     box-shadow: 2px 2px 4px 6px #24000330;
-    margin-top: 20px;
+    margin: 10px auto;
 }
 
 form.QrcodePage-form-7 {
     padding: 10px 0;
     position: relative;
-}
-
-.makeStyles-card-27.QrcodePage-qrcodeCard-14 {
-    padding: 0;
-    top: 25px;
-}
-
-h3.QrcodePage-divider-10.QrcodePage-colorWhite-20 {
-    margin: 20px 0;
-    font-weight: 500;
 }
 
 h3.qr-code-counter {
@@ -237,19 +249,24 @@ svg {
 }
 
 div#queueRow button {
-    margin-top: 30px;
     width: -webkit-fit-content;
     width: -moz-fit-content;
     width: fit-content;
 }
 
+div#fbMessenger {
+    margin-top: 40px;
+}
+
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
     div#formQrRow {
-    display: flex;
-    flex-direction: row;
-}
+        display: flex;
+        flex-direction: row;
+    }
+
     img#qrcodeImg {
         max-width: 150px;
+        margin-top: 40px;
     }
 
     h3.QrcodePage-divider-10 {
@@ -269,6 +286,9 @@ div#queueRow button {
     .QrcodePage-qrcodeCard-96 {
         padding: 0;
     }
+    form.makeStyles-root-35 {
+        margin-top: 20px;
+    }
 
     img#obbaLogo {
         max-width: 60px;
@@ -280,13 +300,13 @@ div#queueRow button {
         height: auto;
     }
 
-h3#headerInfo {
-    font-size: 1.5rem;
-    font-weight: 800;
-    font-family: 'Caveat', serif;
-    margin-top: 20px;
-    text-align: center;
-}
+    h3#headerInfo {
+        font-size: 1.5rem;
+        font-weight: 800;
+        font-family: 'Caveat', serif;
+        margin-top: 20px;
+        text-align: center;
+    }
 
 }
 
@@ -295,6 +315,7 @@ h3#headerInfo {
         font-size: 1rem;
         margin: 20px auto;
     }
+
     div#formQrRow {
         display: flex;
         flex-direction: row;
@@ -303,11 +324,8 @@ h3#headerInfo {
     img#qrcodeImg {
         max-width: 200px;
         box-shadow: 2px 2px 4px 6px #24000330;
+        margin-top: 40px;
     }
-
-    div#whatsapp {
-        margin-bottom: 40px;
-    }    
     span.MuiButton-label {
         font-size: 1rem;
         font-family: 'Caveat', cursive;
@@ -329,26 +347,27 @@ h3#headerInfo {
         width: -webkit-fit-content;
         width: -moz-fit-content;
         width: fit-content;
-        margin: 20px 1px;
     }
 
     div#dividerRow {
         padding-top: 10px;
     }
 
-svg {
-    fill: #ff5244;
-    text-shadow: 1px 3px 6px #ffafaf;
-    font-size: 5rem;
-    margin: 0 50px;
-}
+    svg {
+        fill: #ff5244;
+        text-shadow: 1px 3px 6px #ffafaf;
+        font-size: 5rem;
+        /* margin: 0 50px; */
+    }
 
-h3#headerInfo {
-    font-size: 1.5rem;
-    font-weight: 800;
-    font-family: 'Caveat', serif;
-    margin-top: 20px;
-    text-align: center;
-}
-
+    h3#headerInfo {
+        font-size: 1.5rem;
+        font-weight: 800;
+        font-family: 'Caveat', serif;
+        margin-top: 20px;
+        text-align: center;
+    }
+    form.makeStyles-root-35 {
+        margin-top: 40px;
+    }
 }
