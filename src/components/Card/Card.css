@@ -254,10 +254,6 @@ div#queueRow button {
     width: fit-content;
 }
 
-div#fbMessenger {
-    margin-top: 40px;
-}
-
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
     div#formQrRow {
         display: flex;
