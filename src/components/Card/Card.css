@@ -195,12 +195,7 @@ span.MuiButton-label {
 img#qrcodeImg {
     max-width: 150px;
     box-shadow: 2px 2px 4px 6px #24000330;
-    margin: 10px auto;
-}
-
-form.QrcodePage-form-7 {
-    padding: 10px 0;
-    position: relative;
+    margin-top: 20px;
 }
 
 h3.qr-code-counter {
@@ -319,8 +314,8 @@ div#queueRow button {
 
     img#qrcodeImg {
         max-width: 200px;
-        box-shadow: 2px 2px 4px 6px #24000330;
         margin-top: 40px;
+        box-shadow: 2px 2px 4px 6px #24000330;
     }
     span.MuiButton-label {
         font-size: 1rem;
