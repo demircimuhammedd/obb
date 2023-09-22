@@ -120,8 +120,8 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 		  // Check if the parsed number is valid
 		  isValid = phoneUtil.isValidNumber(parsedNumber);
 	  
-		  // Format the valid number
-		  formattedNumber = phoneUtil.format(parsedNumber, PhoneNumberFormat.E164);
+		  // Format the valid number with a '+'
+		  formattedNumber = '+' + phoneUtil.format(parsedNumber, PhoneNumberFormat.E164);
 		} catch (e) {
 		  errorMsg = 'Invalid phone number.';
 		}
@@ -149,44 +149,49 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 
 	// Inside the handleChange function
 	const handleChange = event => {
-		const id = event.target.id
-		let value = event.target.value
-
+		const id = event.target.id;
+		let value = event.target.value;
+	  
 		if (id === 'phoneNo') {
-			// Validate the phone number
-			const { isValid, errorMsg } = validatePhoneNumber(value)
-
-			// Update the newQueue object with the validated phone number and error message
-			setNewQueue({
-				...newQueue,
-				phoneNo: value,
-			})
-
-			// Update the phone number validation state
-			setIsPhoneNoValid(isValid)
-
-			// Update the phone error message state
-			setPhoneErrorMsg(errorMsg)
+		  // Validate the phone number
+		  const { isValid, errorMsg } = validatePhoneNumber(value);
+	  
+		  // Update the newQueue object with the phone number
+		  setNewQueue({
+			...newQueue,
+			phoneNo: value,
+		  });
+	  
+		  if (!isValid) {
+			// If the phone number is not valid, keep displaying the error message
+			setPhoneErrorMsg(errorMsg);
+		  } else {
+			// If the phone number becomes valid, clear the error message
+			setPhoneErrorMsg('');
+		  }
+	  
+		  setIsPhoneNoValid(isValid);
 		} else if (id === 'paxNo') {
-			// Ensure the value is within the range [1, 10]
-			if (value < 1 || value > 10) {
-				setPaxErrorMsg('Party size must be between 1 and 10.')
-				setIsPartySizeValid(false) // Set party size validation to false
-			} else {
-				setPaxErrorMsg('')
-				setIsPartySizeValid(true) // Set party size validation to true
-			}
-
-			// Update the party size in newQueue
-			setNewQueue({
-				...newQueue,
-				[id]: value,
-			})
+		  // Ensure the value is within the range [1, 10]
+		  if (value < 1 || value > 10) {
+			setPaxErrorMsg('Party size must be between 1 and 10.');
+			setIsPartySizeValid(false);
+		  } else {
+			setPaxErrorMsg('');
+			setIsPartySizeValid(true);
+		  }
+	  
+		  // Update the party size in newQueue
+		  setNewQueue({
+			...newQueue,
+			[id]: value,
+		  });
 		} else {
-			// For other fields, update the 'newQueue' state directly
-			setNewQueue({ ...newQueue, [id]: value })
+		  // For other fields, update the 'newQueue' state directly
+		  setNewQueue({ ...newQueue, [id]: value });
 		}
-	}
+	  };
+	  
 
 	const handleSubmit = (e, newQueue) => {
 		e.preventDefault()
@@ -316,22 +321,22 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 					autoFocus={true}
 				/>
 				<TextField
-					className={clsx({
-						[classes.validInput]: isPhoneNoValid, // Use isPhoneNoValid for phone number field
-						[classes.invalidInput]: !isPhoneNoValid,
-					})}
-					margin="normal"
-					fullWidth
-					variant="outlined"
-					id="phoneNo"
-					label="Phone Number"
-					type="tel"
-					value={newQueue.phoneNo}
-					onChange={handleChange}
-					helperText={phoneErrorMsg}
-					required
-					autoFocus={true}
-				/>
+  className={clsx({
+    [classes.validInput]: isPhoneNoValid,
+    [classes.invalidInput]: !isPhoneNoValid,
+  })}
+  margin="normal"
+  fullWidth
+  variant="outlined"
+  id="phoneNo"
+  label="Phone Number"
+  type="tel"
+  value={newQueue.phoneNo}
+  onChange={handleChange}
+  required
+  error={!isPhoneNoValid}
+  helperText={!isPhoneNoValid ? phoneErrorMsg : ''}
+/>
 				<TextField
 					className={clsx({
 						[classes.validInput]: isPartySizeValid,
