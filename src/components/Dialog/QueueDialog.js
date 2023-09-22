@@ -98,6 +98,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 	// const [gender, setGender] = React.useState('male');
 	const [phoneErrorMsg, setPhoneErrorMsg] = useState('')
 	const [isSuccess, setIsSuccess] = useState(false)
+	const [paxErrorMsg, setPaxErrorMsg] = useState('')
 
 	const classes = useStyles()
 
@@ -148,18 +149,46 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 
 	const handleChange = event => {
 		const id = event.target.id
-		let phoneNo = event.target.value.trim()
-		if (phoneNo[0] !== '+') phoneNo = '+' + phoneNo
-		const { isValid, errorMsg } = validatePhoneNumber(phoneNo)
+		let value = event.target.value
 
 		if (id === 'phoneNo') {
+			// Trim the input value and update the rawPhoneNo
+			let rawPhoneNo = value.trim()
+
+			// Check if the rawPhoneNo starts with a "+" and add it if not
+			if (!rawPhoneNo.startsWith('+')) {
+				rawPhoneNo = '+' + rawPhoneNo
+			}
+
+			// Update the 'newQueue' state with the formatted phone number
+			setNewQueue({ ...newQueue, [id]: rawPhoneNo })
+
+			// Validate the formatted phone number
+			const { isValid, errorMsg } = validatePhoneNumber(rawPhoneNo)
+
 			setPhoneErrorMsg(errorMsg)
+
+			// Apply valid styling if it's a valid phone number
 			event.target.classList.toggle(classes.validInput, isValid)
 			event.target.classList.toggle(classes.invalidInput, !isValid)
+		} else {
+			// For other fields, update the 'newQueue' state directly
+			setNewQueue({ ...newQueue, [id]: value })
 		}
 
-		// Update the 'newQueue' state
-		setNewQueue({ ...newQueue, [id]: event.target.value, isValid })
+		if (id === 'paxNo') {
+			// Ensure the value is within the range [1, 10]
+			if (value < 1) {
+				value = '1' // Set it to the minimum if it's less than 1
+				setPaxErrorMsg('Party size must be at least 1.')
+			} else if (value > 10) {
+				value = '10' // Set it to the maximum if it's greater than 10
+				setPaxErrorMsg('Party size cannot exceed 10.')
+			} else {
+				setPaxErrorMsg('') // Clear the error message if within the valid range
+				event.target.classList.add(classes.validInput) // Apply valid styling
+			}
+		}
 
 		if (id === 'validator') {
 			setjoinMember(event.target.checked)
@@ -169,26 +198,13 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 	const handleSubmit = (e, newQueue) => {
 		e.preventDefault()
 		const { isValid, hasCountryCode, formattedNumber, errorMsg } = validatePhoneNumber(newQueue.phoneNo)
+
 		if (!isValid || !hasCountryCode) {
 			setPhoneErrorMsg(errorMsg)
 			return
 		}
-		if (data.statusCode === 400) {
-			setButtonHidden(false)
-			setServerErrorMsg(data.message)
-			handleClose()
-		} else {
-			setButtonHidden(false)
-			setQueueNumber(data.queueNo)
-			setIsSuccess(true) // Set isSuccess to true for successful submission
-			handleClose()
-		}
-		const updatedQueue = {
-			...newQueue,
-			phoneNo: formattedNumber.replace(/\+/g, ''),
-			member: joinMember,
-		}
-		console.log(updatedQueue)
+
+		// Make the HTTP POST request to submit the form data
 		const postData = async newQueue => {
 			setButtonHidden(true)
 			try {
@@ -201,22 +217,29 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 					body: JSON.stringify(newQueue),
 				})
 				const data = await result.json()
-				return data
+
+				// Check the response status code
+				if (data.statusCode === 400) {
+					setServerErrorMsg(data.message)
+					handleOpen() // You may need to define a handleOpen function to show the error dialog
+				} else {
+					setQueueNumber(data.queueNo)
+					setIsSuccess(true) // Set isSuccess to true for successful submission
+					handleClose()
+				}
 			} catch (error) {
-				console.log(error)
+				console.error(error)
+				// Handle error cases here, such as network errors
 			}
 		}
-		postData(updatedQueue).then(data => {
-			if (data.statusCode === 400) {
-				setButtonHidden(false)
-				setServerErrorMsg(data.message)
-				handleClose()
-			} else {
-				setButtonHidden(false)
-				setQueueNumber(data.queueNo)
-				handleClose()
-			}
+
+		// Call the postData function to submit the data
+		postData({
+			...newQueue,
+			phoneNo: formattedNumber.replace(/\+/g, ''),
+			member: joinMember,
 		})
+		// console.log(newQueue)
 	}
 
 	const renderMemberRegister = () => {
@@ -280,7 +303,6 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 			)
 		}
 	}
-
 	return (
 		<form autoComplete="off" onSubmit={e => handleSubmit(e, newQueue)} className={classes.root}>
 			<div>
@@ -317,27 +339,26 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 					required
 					autoFocus={true}
 				/>
-				<TextField
-					className={clsx({
-						[classes.validInput]: newQueue.isValid,
-						[classes.invalidInput]: !newQueue.isValid,
-					})}
-					margin="normal"
-					fullWidth
-					variant="outlined"
-					id="paxNo"
-					label="Party Size"
-					type="number"
-					value={newQueue.paxNo}
-					onChange={handleChange}
-					required
-					InputProps={{
-						inputProps: {
-							min: 1, // Minimum value
-							max: 10, // Maximum value
-						},
-					}}
-				/>
+				<div>
+					<TextField
+						className={clsx({
+							[classes.validInput]: newQueue.isValid,
+							[classes.invalidInput]: !newQueue.isValid,
+						})}
+						margin="normal"
+						fullWidth
+						variant="outlined"
+						id="paxNo"
+						label="Party Size"
+						type="number"
+						value={newQueue.paxNo}
+						onChange={handleChange}
+						required
+						InputProps={{ inputProps: { min: 1, max: 10 } }}
+						helperText={paxErrorMsg} // Set the helperText to paxErrorMsg
+					/>
+					{paxErrorMsg && <div className={classes.invalidInputText}>{paxErrorMsg}</div>}
+				</div>
 
 				{}
 			</div>
