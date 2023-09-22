@@ -53,20 +53,26 @@ const useStyles = makeStyles(theme => ({
 		cursor: 'pointer',
 	},
 	phoneInput: {
-		"& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-			"-webkit-appearance": "none",
-			margin: 0
-		}
-    },
+		'& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
+			'-webkit-appearance': 'none',
+			margin: 0,
+		},
+		validInput: {
+			borderColor: 'green',
+		},
+		invalidInput: {
+			borderColor: 'red',
+		},
+	},
 }))
 
-export default function QueueEnquiryDialog({ setQueueEnqMsg , EnqErrorMsg, setEnqErrorMsg}) {
+export default function QueueEnquiryDialog({ setQueueEnqMsg, EnqErrorMsg, setEnqErrorMsg }) {
 	const [open, setOpen] = useState(false)
 	const [phoneErrorMsg, setPhoneErrorMsg] = useState('')
 
 	const [EnqNumber, setEnqNumber] = useState({
 		// queueId: ''
-		phoneNo: '65'
+		phoneNo: '65',
 	})
 	const classes = useStyles()
 
@@ -79,7 +85,7 @@ export default function QueueEnquiryDialog({ setQueueEnqMsg , EnqErrorMsg, setEn
 		setOpen(false)
 		setEnqNumber({
 			// queueId: ''
-			phoneNo: '65'
+			phoneNo: '65',
 		})
 	}
 
@@ -93,13 +99,12 @@ export default function QueueEnquiryDialog({ setQueueEnqMsg , EnqErrorMsg, setEn
 		// } else {
 		// 	setEnqNumber({ ...EnqNumber, [id]: event.target.value })
 		// }
-		if (event.target.value.length > 11 ) {
+		if (event.target.value.length > 11) {
 			setEnqNumber({ ...EnqNumber, [event.target.id]: EnqNumber.phoneNo })
-		}else{
+		} else {
 			setEnqNumber({ ...EnqNumber, [event.target.id]: event.target.value })
 		}
 	}
-
 
 	const handleSubmit = (e, EnqNumber) => {
 		e.preventDefault()
@@ -112,7 +117,7 @@ export default function QueueEnquiryDialog({ setQueueEnqMsg , EnqErrorMsg, setEn
 		// 	phoneNo: systemPhoneNo,
 		// }
 		// const phoneRegex = /^[0-9]{10}$/
-		if (EnqNumber.phoneNo.length < 10 ) {
+		if (EnqNumber.phoneNo.length < 10) {
 			setPhoneErrorMsg('Please enter the correct phone number. eg. 65XXXX XXXX(X)')
 		} else {
 			const postData = async EnqNumber => {
@@ -135,26 +140,22 @@ export default function QueueEnquiryDialog({ setQueueEnqMsg , EnqErrorMsg, setEn
 				// if (data.statusCode === 400) {
 				// 	setServerErrorMsg(data.message)
 				// 	handleClose()
-					console.log(data)
+				console.log(data)
 				if (data) {
-
-					if (data.statusCode === 500 || data.statusCode === 400){
-						setEnqErrorMsg('No matching phone number found.'+ '\n' +  data.message )
-					}else{
-						if (data.summaryText === "")
-						{
+					if (data.statusCode === 500 || data.statusCode === 400) {
+						setEnqErrorMsg('No matching phone number found.' + '\n' + data.message)
+					} else {
+						if (data.summaryText === '') {
 							setQueueEnqMsg('You are the next in queue.')
-						}else{
+						} else {
 							setQueueEnqMsg(data.summaryText)
 						}
 					}
-										
+
 					handleClose()
 				}
 			})
 		}
-		
-		
 	}
 
 	return (
@@ -199,12 +200,10 @@ export default function QueueEnquiryDialog({ setQueueEnqMsg , EnqErrorMsg, setEn
 								onChange={handleChange}
 								helperText={phoneErrorMsg}
 								required
-								autoFocus= {true}
-								FormHelperTextProps={
-									{
-										className: classes.phoneInput
-									}
-								}
+								autoFocus={true}
+								FormHelperTextProps={{
+									className: classes.phoneInput,
+								}}
 							/>
 						</div>
 						<div className={classes.buttonWrapper}>

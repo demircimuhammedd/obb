@@ -8,6 +8,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import { PhoneNumberFormat, PhoneNumberUtil } from 'google-libphonenumber'
 import React, { useState } from 'react'
 import { HOST, getOutletFullname, outletAbbr } from '../../utils/config'
+import clsx from 'clsx'
+import classNames from 'classnames'
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -16,7 +18,8 @@ const useStyles = makeStyles(theme => ({
 		},
 		'& .MuiFormHelperText-root': {
 			color: '#db0011',
-			fontSize: '1rem',
+			fontSize: '12px',
+			borderBottt: 'none',
 		},
 	},
 	formTitle: {
@@ -39,6 +42,10 @@ const useStyles = makeStyles(theme => ({
 		marginLeft: '1rem',
 		paddingTop: '12px',
 	},
+	invalidInputText: {
+		border: 'none',
+		fontSize: '12px',
+	},
 	dFlex: {
 		display: 'flex',
 	},
@@ -52,6 +59,14 @@ const useStyles = makeStyles(theme => ({
 	},
 	memberIcon: {
 		cursor: 'pointer',
+	},
+	validInput: {
+		borderBottom: '1px solid #afff67',
+		backgroundColor: 'transparent',
+	},
+	invalidInput: {
+		borderBottom: '1px solid #d60413',
+		backgroundColor: 'transparent',
 	},
 }))
 
@@ -82,6 +97,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 	]
 	// const [gender, setGender] = React.useState('male');
 	const [phoneErrorMsg, setPhoneErrorMsg] = useState('')
+	const [isSuccess, setIsSuccess] = useState(false)
 
 	const classes = useStyles()
 
@@ -103,6 +119,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 				errorMsg = 'Please include the country code.'
 			} else if (!isValid) {
 				errorMsg = 'Invalid phone number.'
+				classNames(classes.invalidInputText)
 			}
 		} catch (e) {
 			errorMsg = e.message ? e.message : 'Invalid phone number.'
@@ -133,19 +150,17 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 		const id = event.target.id
 		let phoneNo = event.target.value.trim()
 		if (phoneNo[0] !== '+') phoneNo = '+' + phoneNo
-		const { errorMsg } = validatePhoneNumber(phoneNo)
+		const { isValid, errorMsg } = validatePhoneNumber(phoneNo)
+
 		if (id === 'phoneNo') {
 			setPhoneErrorMsg(errorMsg)
-			setNewQueue({ ...newQueue, phoneNo: phoneNo })
+			event.target.classList.toggle(classes.validInput, isValid)
+			event.target.classList.toggle(classes.invalidInput, !isValid)
 		}
-		// else if(id === 'validator'){
-		// 	setNewQueue({ ...newQueue, [id]: event.target.checked })
-		// }
-		else {
-			setNewQueue({ ...newQueue, [id]: event.target.value })
-		}
-		// setGender(event.target.value);
-		// console.log(event.target.value)
+
+		// Update the 'newQueue' state
+		setNewQueue({ ...newQueue, [id]: event.target.value, isValid })
+
 		if (id === 'validator') {
 			setjoinMember(event.target.checked)
 		}
@@ -157,6 +172,16 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 		if (!isValid || !hasCountryCode) {
 			setPhoneErrorMsg(errorMsg)
 			return
+		}
+		if (data.statusCode === 400) {
+			setButtonHidden(false)
+			setServerErrorMsg(data.message)
+			handleClose()
+		} else {
+			setButtonHidden(false)
+			setQueueNumber(data.queueNo)
+			setIsSuccess(true) // Set isSuccess to true for successful submission
+			handleClose()
 		}
 		const updatedQueue = {
 			...newQueue,
@@ -258,70 +283,72 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 
 	return (
 		<form autoComplete="off" onSubmit={e => handleSubmit(e, newQueue)} className={classes.root}>
-						<div>
-							<TextField
-								margin="normal"
-								fullWidth
-								variant="outlined"
-								id="name"
-								label="Name"
-								value={newQueue.name}
-								type="text"
-								onChange={handleChange}
-								required
-								autoFocus={true}
-							/>
-							<TextField
-								margin="normal"
-								fullWidth
-								variant="outlined"
-								id="phoneNo"
-								label="Phone Number"
-								type="tel"
-								value={newQueue.phoneNo}
-								onChange={handleChange}
-								helperText={phoneErrorMsg}
-								required
-								autoFocus={true}
+			<div>
+				<TextField
+					className={clsx({
+						[classes.validInput]: newQueue.name.trim() !== '',
+						[classes.invalidInput]: newQueue.name.trim() === '',
+					})}
+					margin="normal"
+					fullWidth
+					variant="outlined"
+					id="name"
+					label="Name"
+					value={newQueue.name}
+					type="text"
+					onChange={handleChange}
+					required // Make the field required
+					autoFocus={true}
+				/>
+				<TextField
+					className={clsx({
+						[classes.validInput]: newQueue.isValid,
+						[classes.invalidInput]: !newQueue.isValid,
+					})}
+					margin="normal"
+					fullWidth
+					variant="outlined"
+					id="phoneNo"
+					label="Phone Number"
+					type="tel"
+					value={newQueue.phoneNo}
+					onChange={handleChange}
+					helperText={phoneErrorMsg}
+					required
+					autoFocus={true}
+				/>
+				<TextField
+					className={clsx({
+						[classes.validInput]: newQueue.isValid,
+						[classes.invalidInput]: !newQueue.isValid,
+					})}
+					margin="normal"
+					fullWidth
+					variant="outlined"
+					id="paxNo"
+					label="Party Size"
+					type="number"
+					value={newQueue.paxNo}
+					onChange={handleChange}
+					required
+					InputProps={{
+						inputProps: {
+							min: 1, // Minimum value
+							max: 10, // Maximum value
+						},
+					}}
+				/>
 
-							/>
-							<TextField
-								margin="normal"
-								fullWidth
-								variant="outlined"
-								id="paxNo"
-								label="Party Size"
-								type="number"
-								value={newQueue.paxNo}
-								onChange={handleChange}
-								required
-								InputProps={{ inputProps: { min: 1, max: queueMaxPax } }}
-							/>
-
-							{/* <FormControlLabel
-								label="Join Member"
-								control={
-									<Checkbox
-										variant="outlined"
-										checked={joinMember}
-										onChange={handleChange}
-										id="validator"
-										name="validator"
-										color="primary"
-									/>
-								}
-							/>
-							{renderMemberRegister()} */}
-						</div>
-						<div className={classes.buttonWrapper}>
-							<Button onClick={handleClose} color="primary" id='cancelBtn'>
-								Cancel
-							</Button>
-							<Button type="submit" color="primary" disabled={buttonHidden} id="addBtn">
-								Add
-							</Button>
-						</div>
-					</form>
-
+				{}
+			</div>
+			<div className={classes.buttonWrapper}>
+				<Button onClick={handleClose} color="primary" id="cancelBtn">
+					Cancel
+				</Button>
+				<Button type="submit" color="primary" disabled={buttonHidden} id="addBtn">
+					Add
+				</Button>
+			</div>
+		</form>
 	)
 }

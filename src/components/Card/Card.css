@@ -143,7 +143,6 @@ input#phoneNo,
 input#paxNo {
     font-family: 'Caveat', cursive;
     font-size: 1.2rem;
-    border-bottom-color: transparent;
     background: #eb28288d;
     padding: 10px 0;
     color: #fafafa;
