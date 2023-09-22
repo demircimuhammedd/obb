@@ -185,7 +185,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 				value = '10' // Set it to the maximum if it's greater than 10
 				setPaxErrorMsg('Party size cannot exceed 10.')
 			} else {
-				setPaxErrorMsg('') // Clear the error message if within the valid range
+				setPaxErrorMsg('') // Clear the error message if within the valid raange
 				event.target.classList.add(classes.validInput) // Apply valid styling
 			}
 		}
@@ -239,7 +239,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 			phoneNo: formattedNumber.replace(/\+/g, ''),
 			member: joinMember,
 		})
-		// console.log(newQueue)
+		console.log(newQueue)
 	}
 
 	const renderMemberRegister = () => {
