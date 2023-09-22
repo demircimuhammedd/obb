@@ -111,22 +111,23 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 		const phoneUtil = PhoneNumberUtil.getInstance();
 	  
 		try {
-		  const parsedNumber = phoneUtil.parseAndKeepRawInput(phoneNo);
+		  // Remove any non-digit characters from the phone number
+		  const sanitizedNumber = phoneNo.replace(/\D/g, '');
 	  
-		  // Check if a valid country code is present, or apply a default if needed
-		  if (!parsedNumber.hasCountryCode()) {
-			throw new Error('Please include the country code.');
-		  }
+		  // Parse the sanitized number
+		  const parsedNumber = phoneUtil.parse(sanitizedNumber, 'US'); // You can change 'US' to the appropriate country code
 	  
+		  // Check if the parsed number is valid
 		  isValid = phoneUtil.isValidNumber(parsedNumber);
+	  
+		  // Format the valid number
 		  formattedNumber = phoneUtil.format(parsedNumber, PhoneNumberFormat.E164);
 		} catch (e) {
-		  errorMsg = e.message ? e.message : 'Invalid phone number.';
+		  errorMsg = 'Invalid phone number.';
 		}
 	  
 		return { isValid, formattedNumber, errorMsg };
 	  };
-	  
 
 	const handleClickOpen = () => {
 		setOpen(true)

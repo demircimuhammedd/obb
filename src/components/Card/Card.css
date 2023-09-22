@@ -85,7 +85,23 @@ img#ollaaLogo {
     height: auto;
 }
 
+h3.qr-code-counter {
+    color: #fafafa;
+    font-size: 14px;
+}
+
 /* ----------------- Form */
+p#phoneNo-helper-text, 
+p#paxNo-helper-text {
+    color: #fafafa; /* Red color for the error message text */
+    font-size: 12px;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    font-weight: 500;
+    text-align: left;
+    /* Add any additional styling you want, such as margin, padding, or font family */
+}
+
 input::-webkit-input-placeholder {
     color: #ff7575;
 }
