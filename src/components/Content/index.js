@@ -212,7 +212,7 @@ const QrcodePage = ({ classes }) => {
 											id="qrcodeImg"
 										/>
 									)}
-									<h3 class="qr-code-counter">
+									<h3 className="qr-code-counter">
 										QR Code will be refresh in{' '}
 										<span className={`${classes.counterNum}`}>{counter}</span> second.
 									</h3>

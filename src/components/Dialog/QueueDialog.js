@@ -74,6 +74,8 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 	const [open, setOpen] = useState(false)
 	const [buttonHidden, setButtonHidden] = useState(false)
 	const [outletFullname, setOutletFullname] = useState(getOutletFullname(outletAbbr))
+	const [isPartySizeValid, setIsPartySizeValid] = useState(false); // Start with false
+	const [isPhoneNoValid, setIsPhoneNoValid] = useState(false); // Start with false	
 	const [newQueue, setNewQueue] = useState({
 		name: '',
 		phoneNo: '',
@@ -99,7 +101,6 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 	const [phoneErrorMsg, setPhoneErrorMsg] = useState('')
 	const [isSuccess, setIsSuccess] = useState(false)
 	const [paxErrorMsg, setPaxErrorMsg] = useState('')
-
 	const classes = useStyles()
 
 	const validatePhoneNumber = phoneNo => {
@@ -152,46 +153,37 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 		let value = event.target.value
 
 		if (id === 'phoneNo') {
-			// Trim the input value and update the rawPhoneNo
-			let rawPhoneNo = value.trim()
+			// Validate the phone number
+			const { isValid, errorMsg } = validatePhoneNumber(value)
 
-			// Check if the rawPhoneNo starts with a "+" and add it if not
-			if (!rawPhoneNo.startsWith('+')) {
-				rawPhoneNo = '+' + rawPhoneNo
+			// Update the newQueue object with the validated phone number and error message
+			setNewQueue({
+				...newQueue,
+				phoneNo: value,
+				isValid: isValid,
+				phoneErrorMsg: errorMsg,
+			})
+
+			// Update the phone number validation state
+			setIsPhoneNoValid(isValid)
+		} else if (id === 'paxNo') {
+			// Ensure the value is within the range [1, 10]
+			if (value < 1 || value > 10) {
+				setPaxErrorMsg('Party size must be between 1 and 10.')
+				setIsPartySizeValid(false) // Set party size validation to false
+			} else {
+				setPaxErrorMsg('')
+				setIsPartySizeValid(true) // Set party size validation to true
 			}
 
-			// Update the 'newQueue' state with the formatted phone number
-			setNewQueue({ ...newQueue, [id]: rawPhoneNo })
-
-			// Validate the formatted phone number
-			const { isValid, errorMsg } = validatePhoneNumber(rawPhoneNo)
-
-			setPhoneErrorMsg(errorMsg)
-
-			// Apply valid styling if it's a valid phone number
-			event.target.classList.toggle(classes.validInput, isValid)
-			event.target.classList.toggle(classes.invalidInput, !isValid)
+			// Update the party size in newQueue
+			setNewQueue({
+				...newQueue,
+				[id]: value,
+			})
 		} else {
 			// For other fields, update the 'newQueue' state directly
 			setNewQueue({ ...newQueue, [id]: value })
-		}
-
-		if (id === 'paxNo') {
-			// Ensure the value is within the range [1, 10]
-			if (value < 1) {
-				value = '1' // Set it to the minimum if it's less than 1
-				setPaxErrorMsg('Party size must be at least 1.')
-			} else if (value > 10) {
-				value = '10' // Set it to the maximum if it's greater than 10
-				setPaxErrorMsg('Party size cannot exceed 10.')
-			} else {
-				setPaxErrorMsg('') // Clear the error message if within the valid raange
-				event.target.classList.add(classes.validInput) // Apply valid styling
-			}
-		}
-
-		if (id === 'validator') {
-			setjoinMember(event.target.checked)
 		}
 	}
 
@@ -324,8 +316,8 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 				/>
 				<TextField
 					className={clsx({
-						[classes.validInput]: newQueue.isValid,
-						[classes.invalidInput]: !newQueue.isValid,
+						[classes.validInput]: isPhoneNoValid, // Use isPhoneNoValid for phone number field
+						[classes.invalidInput]: !isPhoneNoValid,
 					})}
 					margin="normal"
 					fullWidth
@@ -338,29 +330,26 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 					helperText={phoneErrorMsg}
 					required
 					autoFocus={true}
-				/>
-				<div>
-					<TextField
-						className={clsx({
-							[classes.validInput]: newQueue.isValid,
-							[classes.invalidInput]: !newQueue.isValid,
-						})}
-						margin="normal"
-						fullWidth
-						variant="outlined"
-						id="paxNo"
-						label="Party Size"
-						type="number"
-						value={newQueue.paxNo}
-						onChange={handleChange}
-						required
-						InputProps={{ inputProps: { min: 1, max: 10 } }}
-						helperText={paxErrorMsg} // Set the helperText to paxErrorMsg
 					/>
-					{paxErrorMsg && <div className={classes.invalidInputText}>{paxErrorMsg}</div>}
-				</div>
-
-				{}
+				<TextField
+					className={clsx({
+						[classes.validInput]: isPartySizeValid,
+						[classes.invalidInput]: !isPartySizeValid,
+					})}
+					margin="normal"
+					fullWidth
+					variant="outlined"
+					id="paxNo"
+					label="Party Size"
+					type="number"
+					value={newQueue.paxNo}
+					onChange={handleChange}
+					required
+					InputProps={{
+						inputProps: { min: 1, max: 10 },
+					}}
+					helperText={paxErrorMsg}
+				/>
 			</div>
 			<div className={classes.buttonWrapper}>
 				<Button onClick={handleClose} color="primary" id="cancelBtn">
