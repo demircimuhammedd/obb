@@ -74,8 +74,8 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 	const [open, setOpen] = useState(false)
 	const [buttonHidden, setButtonHidden] = useState(false)
 	const [outletFullname, setOutletFullname] = useState(getOutletFullname(outletAbbr))
-	const [isPartySizeValid, setIsPartySizeValid] = useState(false); // Start with false
-	const [isPhoneNoValid, setIsPhoneNoValid] = useState(false); // Start with false	
+	const [isPartySizeValid, setIsPartySizeValid] = useState(false) // Start with false
+	const [isPhoneNoValid, setIsPhoneNoValid] = useState(false) // Start with false
 	const [newQueue, setNewQueue] = useState({
 		name: '',
 		phoneNo: '',
@@ -104,31 +104,29 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 	const classes = useStyles()
 
 	const validatePhoneNumber = phoneNo => {
-		let isValid = false
-		let hasCountryCode = false
-		let formattedNumber = ''
-		let errorMsg = ''
-
-		const phoneUtil = PhoneNumberUtil.getInstance()
-
+		let isValid = false;
+		let formattedNumber = '';
+		let errorMsg = '';
+	  
+		const phoneUtil = PhoneNumberUtil.getInstance();
+	  
 		try {
-			const parsedNumber = phoneUtil.parseAndKeepRawInput(phoneNo)
-			isValid = phoneUtil.isValidNumber(parsedNumber)
-			hasCountryCode = parsedNumber.hasCountryCode()
-			formattedNumber = phoneUtil.format(parsedNumber, PhoneNumberFormat.E164)
-
-			if (!hasCountryCode) {
-				errorMsg = 'Please include the country code.'
-			} else if (!isValid) {
-				errorMsg = 'Invalid phone number.'
-				classNames(classes.invalidInputText)
-			}
+		  const parsedNumber = phoneUtil.parseAndKeepRawInput(phoneNo);
+	  
+		  // Check if a valid country code is present, or apply a default if needed
+		  if (!parsedNumber.hasCountryCode()) {
+			throw new Error('Please include the country code.');
+		  }
+	  
+		  isValid = phoneUtil.isValidNumber(parsedNumber);
+		  formattedNumber = phoneUtil.format(parsedNumber, PhoneNumberFormat.E164);
 		} catch (e) {
-			errorMsg = e.message ? e.message : 'Invalid phone number.'
+		  errorMsg = e.message ? e.message : 'Invalid phone number.';
 		}
-
-		return { isValid, hasCountryCode, formattedNumber, errorMsg }
-	}
+	  
+		return { isValid, formattedNumber, errorMsg };
+	  };
+	  
 
 	const handleClickOpen = () => {
 		setOpen(true)
@@ -148,6 +146,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 		})
 	}
 
+	// Inside the handleChange function
 	const handleChange = event => {
 		const id = event.target.id
 		let value = event.target.value
@@ -160,12 +159,13 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 			setNewQueue({
 				...newQueue,
 				phoneNo: value,
-				isValid: isValid,
-				phoneErrorMsg: errorMsg,
 			})
 
 			// Update the phone number validation state
 			setIsPhoneNoValid(isValid)
+
+			// Update the phone error message state
+			setPhoneErrorMsg(errorMsg)
 		} else if (id === 'paxNo') {
 			// Ensure the value is within the range [1, 10]
 			if (value < 1 || value > 10) {
@@ -330,7 +330,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 					helperText={phoneErrorMsg}
 					required
 					autoFocus={true}
-					/>
+				/>
 				<TextField
 					className={clsx({
 						[classes.validInput]: isPartySizeValid,
