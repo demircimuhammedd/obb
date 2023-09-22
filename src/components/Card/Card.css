@@ -329,7 +329,7 @@ div#queueRow button {
 
     img#qrcodeImg {
         max-width: 200px;
-        margin-top: 40px;
+        margin-top: 30px;
         box-shadow: 2px 2px 4px 6px #24000330;
     }
     span.MuiButton-label {
@@ -373,7 +373,5 @@ div#queueRow button {
         margin-top: 20px;
         text-align: center;
     }
-    form.makeStyles-root-35 {
-        margin-top: 40px;
-    }
+
 }
