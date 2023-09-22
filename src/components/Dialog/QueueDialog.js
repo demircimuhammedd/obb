@@ -10,6 +10,8 @@ import React, { useState } from 'react'
 import { HOST, getOutletFullname, outletAbbr } from '../../utils/config'
 import clsx from 'clsx'
 import classNames from 'classnames'
+const MIN_PHONE_NUMBER_LENGTH = 7 // Define the minimum length for the phone number
+const MAX_PHONE_NUMBER_LENGTH = 15 // Define the maximum length for the phone number
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -76,6 +78,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 	const [outletFullname, setOutletFullname] = useState(getOutletFullname(outletAbbr))
 	const [isPartySizeValid, setIsPartySizeValid] = useState(false) // Start with false
 	const [isPhoneNoValid, setIsPhoneNoValid] = useState(false) // Start with false
+
 	const [newQueue, setNewQueue] = useState({
 		name: '',
 		phoneNo: '',
@@ -104,30 +107,30 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 	const classes = useStyles()
 
 	const validatePhoneNumber = phoneNo => {
-		let isValid = false;
-		let formattedNumber = '';
-		let errorMsg = '';
-	  
-		const phoneUtil = PhoneNumberUtil.getInstance();
-	  
+		let isValid = false
+		let formattedNumber = ''
+		const errorMsg = 'Invalid phone number'
+
+		const phoneUtil = PhoneNumberUtil.getInstance()
+
 		try {
-		  // Remove any non-digit characters from the phone number
-		  const sanitizedNumber = phoneNo.replace(/\D/g, '');
-	  
-		  // Parse the sanitized number
-		  const parsedNumber = phoneUtil.parse(sanitizedNumber, 'US'); // You can change 'US' to the appropriate country code
-	  
-		  // Check if the parsed number is valid
-		  isValid = phoneUtil.isValidNumber(parsedNumber);
-	  
-		  // Format the valid number with a '+'
-		  formattedNumber = '+' + phoneUtil.format(parsedNumber, PhoneNumberFormat.E164);
+			// Remove any non-digit characters from the phone number
+			const sanitizedNumber = phoneNo.replace(/\D/g, '')
+
+			// Parse the sanitized number
+			const parsedNumber = phoneUtil.parse(sanitizedNumber, 'US') // You can change 'US' to the appropriate country code
+
+			// Check if the parsed number is valid
+			isValid = phoneUtil.isValidNumber(parsedNumber)
+
+			// Format the valid number with a '+'
+			formattedNumber = '+' + phoneUtil.format(parsedNumber, PhoneNumberFormat.E164)
 		} catch (e) {
-		  errorMsg = 'Invalid phone number.';
+			return { isValid, formattedNumber, errorMsg }
 		}
-	  
-		return { isValid, formattedNumber, errorMsg };
-	  };
+
+		return { isValid, formattedNumber, errorMsg }
+	}
 
 	const handleClickOpen = () => {
 		setOpen(true)
@@ -147,51 +150,59 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 		})
 	}
 
-	// Inside the handleChange function
 	const handleChange = event => {
-		const id = event.target.id;
-		let value = event.target.value;
-	  
+		const id = event.target.id
+		let value = event.target.value
+
 		if (id === 'phoneNo') {
-		  // Validate the phone number
-		  const { isValid, errorMsg } = validatePhoneNumber(value);
-	  
-		  // Update the newQueue object with the phone number
-		  setNewQueue({
-			...newQueue,
-			phoneNo: value,
-		  });
-	  
-		  if (!isValid) {
-			// If the phone number is not valid, keep displaying the error message
-			setPhoneErrorMsg(errorMsg);
-		  } else {
-			// If the phone number becomes valid, clear the error message
-			setPhoneErrorMsg('');
-		  }
-	  
-		  setIsPhoneNoValid(isValid);
+			// Automatically prepend the plus sign if it's not already there
+			if (!value.startsWith('+')) {
+				value = '+' + value
+			}
+
+			 // Check if the input length is within the defined limits
+			 if (value.length >= MAX_PHONE_NUMBER_LENGTH) {
+				return; // Prevent further input if the length is outside the limits
+			}	
+
+			// Validate the phone number
+			const { isValid, errorMsg } = validatePhoneNumber(value)
+
+			// Update the newQueue object with the formatted phone number
+			setNewQueue({
+				...newQueue,
+				phoneNo: value,
+			})
+
+			if (!isValid) {
+				// If the phone number is not valid, keep displaying the error message
+				setPhoneErrorMsg(errorMsg)
+			} else {
+				// If the phone number becomes valid, clear the error message
+				setPhoneErrorMsg('')
+			}
+
+			setIsPhoneNoValid(isValid)
 		} else if (id === 'paxNo') {
-		  // Ensure the value is within the range [1, 10]
-		  if (value < 1 || value > 10) {
-			setPaxErrorMsg('Party size must be between 1 and 10.');
-			setIsPartySizeValid(false);
-		  } else {
-			setPaxErrorMsg('');
-			setIsPartySizeValid(true);
-		  }
-	  
-		  // Update the party size in newQueue
-		  setNewQueue({
-			...newQueue,
-			[id]: value,
-		  });
+			// Ensure the value is within the range [1, 10]
+			if (value < 1 || value > 10) {
+				setPaxErrorMsg('Party size must be between 1 and 10.')
+				setIsPartySizeValid(false)
+			} else {
+				setPaxErrorMsg('')
+				setIsPartySizeValid(true)
+			}
+
+			// Update the party size in newQueue
+			setNewQueue({
+				...newQueue,
+				[id]: value,
+			})
 		} else {
-		  // For other fields, update the 'newQueue' state directly
-		  setNewQueue({ ...newQueue, [id]: value });
+			// For other fields, update the 'newQueue' state directly
+			setNewQueue({ ...newQueue, [id]: value })
 		}
-	  };
-	  
+	}
 
 	const handleSubmit = (e, newQueue) => {
 		e.preventDefault()
@@ -321,22 +332,22 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 					autoFocus={true}
 				/>
 				<TextField
-  className={clsx({
-    [classes.validInput]: isPhoneNoValid,
-    [classes.invalidInput]: !isPhoneNoValid,
-  })}
-  margin="normal"
-  fullWidth
-  variant="outlined"
-  id="phoneNo"
-  label="Phone Number"
-  type="tel"
-  value={newQueue.phoneNo}
-  onChange={handleChange}
-  required
-  error={!isPhoneNoValid}
-  helperText={!isPhoneNoValid ? phoneErrorMsg : ''}
-/>
+					className={clsx({
+						[classes.validInput]: isPhoneNoValid,
+						[classes.invalidInput]: !isPhoneNoValid,
+					})}
+					margin="normal"
+					fullWidth
+					variant="outlined"
+					id="phoneNo"
+					label="Phone Number"
+					type="tel"
+					value={newQueue.phoneNo}
+					onChange={handleChange}
+					required
+					error={!isPhoneNoValid}
+					helperText={!isPhoneNoValid ? phoneErrorMsg : ''}
+				/>
 				<TextField
 					className={clsx({
 						[classes.validInput]: isPartySizeValid,
