@@ -161,48 +161,48 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 			}
 
 			 // Check if the input length is within the defined limits
-			 if (value.length >= MAX_PHONE_NUMBER_LENGTH) {
+			 if (value.length > MAX_PHONE_NUMBER_LENGTH) {
 				return; // Prevent further input if the length is outside the limits
 			}	
 
 			// Validate the phone number
-			const { isValid, errorMsg } = validatePhoneNumber(value)
+			const { isValid, errorMsg } = validatePhoneNumber(value);
 
 			// Update the newQueue object with the formatted phone number
 			setNewQueue({
 				...newQueue,
 				phoneNo: value,
-			})
+			});
 
 			if (!isValid) {
 				// If the phone number is not valid, keep displaying the error message
-				setPhoneErrorMsg(errorMsg)
+				setPhoneErrorMsg(errorMsg);
 			} else {
 				// If the phone number becomes valid, clear the error message
-				setPhoneErrorMsg('')
+				setPhoneErrorMsg('');
 			}
 
-			setIsPhoneNoValid(isValid)
+			setIsPhoneNoValid(isValid);
 		} else if (id === 'paxNo') {
 			// Ensure the value is within the range [1, 10]
 			if (value < 1 || value > 10) {
-				setPaxErrorMsg('Party size must be between 1 and 10.')
-				setIsPartySizeValid(false)
+				setPaxErrorMsg('Party size must be between 1 and 10.');
+				setIsPartySizeValid(false);
 			} else {
-				setPaxErrorMsg('')
-				setIsPartySizeValid(true)
+				setPaxErrorMsg('');
+				setIsPartySizeValid(true);
 			}
 
 			// Update the party size in newQueue
 			setNewQueue({
 				...newQueue,
 				[id]: value,
-			})
+			});
 		} else {
 			// For other fields, update the 'newQueue' state directly
-			setNewQueue({ ...newQueue, [id]: value })
+			setNewQueue({ ...newQueue, [id]: value });
 		}
-	}
+	};
 
 	const handleSubmit = (e, newQueue) => {
 		e.preventDefault()
