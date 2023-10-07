@@ -152,25 +152,57 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 
 	const handleChange = event => {
 		const id = event.target.id
-		let phoneNo = event.target.value.trim()
-		if (phoneNo[0] !== '+') phoneNo = '+' + phoneNo
-		const { errorMsg } = validatePhoneNumber(phoneNo)
+		let value = event.target.value
+
 		if (id === 'phoneNo') {
-			setPhoneErrorMsg(errorMsg)
-			setNewQueue({ ...newQueue, phoneNo: phoneNo })
+			// Automatically prepend the plus sign if it's not already there
+			if (!value.startsWith('+')) {
+				value = '+' + value
+			}
+
+			 // Check if the input length is within the defined limits
+			 if (value.length > MAX_PHONE_NUMBER_LENGTH) {
+				return; // Prevent further input if the length is outside the limits
+			}	
+
+			// Validate the phone number
+			const { isValid, errorMsg } = validatePhoneNumber(value);
+
+			// Update the newQueue object with the formatted phone number
+			setNewQueue({
+				...newQueue,
+				phoneNo: value,
+			});
+
+			if (!isValid) {
+				// If the phone number is not valid, keep displaying the error message
+				setPhoneErrorMsg(errorMsg);
+			} else {
+				// If the phone number becomes valid, clear the error message
+				setPhoneErrorMsg('');
+			}
+
+			setIsPhoneNoValid(isValid);
+		} else if (id === 'paxNo') {
+			// Ensure the value is within the range [1, 10]
+			if (value < 1 || value > 10) {
+				setPaxErrorMsg('Party size must be between 1 and 10.');
+				setIsPartySizeValid(false);
+			} else {
+				setPaxErrorMsg('');
+				setIsPartySizeValid(true);
+			}
+
+			// Update the party size in newQueue
+			setNewQueue({
+				...newQueue,
+				[id]: value,
+			});
+		} else {
+			// For other fields, update the 'newQueue' state directly
+			setNewQueue({ ...newQueue, [id]: value });
 		}
-		// else if(id === 'validator'){
-		// 	setNewQueue({ ...newQueue, [id]: event.target.checked })
-		// }
-		else {
-			setNewQueue({ ...newQueue, [id]: event.target.value })
-		}
-		// setGender(event.target.value);
-		// console.log(event.target.value)
-		if (id === 'validator') {
-			setjoinMember(event.target.checked)
-		}
-	}
+	};
 
 	const handleSubmit = (e, newQueue) => {
 		e.preventDefault()
