@@ -124,6 +124,9 @@ const qrcodePageStyle = {
 		marginBottom: '0px',
 		marginLeft: '0px',
 	},
+	iconRow: {
+		display: 'flex',
+	},
 }
 
 export default qrcodePageStyle

@@ -175,6 +175,17 @@ button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary:ho
     background-color: #ff5244;
 }
 
+.MuiGrid-root.makeStyles-grid-28.MuiGrid-item.MuiGrid-grid-xs-12.MuiGrid-grid-sm-12.MuiGrid-grid-md-10 {
+    justify-content: center;
+}
+
+svg {
+    fill: #ff5244;
+    text-shadow: 1px 3px 6px #ffafaf;
+    font-size: 3rem;
+    margin: 0 20px;
+}
+
 
 /* ----------------- Divider Row */
 .makeStyles-cardBody-29.QrcodePage-spinnerWrapper-15 {
@@ -249,13 +260,6 @@ div#queueRow {
 div#formQrRow {
     display: flex;
     flex-direction: column;
-}
-
-svg {
-    fill: #ff5244;
-    text-shadow: 1px 3px 6px #ffafaf;
-    font-size: 3rem;
-    margin: 0 50px;
 }
 
 div#queueRow button {
@@ -362,8 +366,6 @@ div#queueRow button {
     svg {
         fill: #ff5244;
         text-shadow: 1px 3px 6px #ffafaf;
-        font-size: 5rem;
-        /* margin: 0 50px; */
     }
 
     h3#headerInfo {
