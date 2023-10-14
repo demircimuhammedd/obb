@@ -166,7 +166,7 @@ export default function QueueEnquiryDialog({ setQueueEnqMsg, EnqErrorMsg, setEnq
 				onClick={handleClickOpen}
 				style={{ fontSize: '2rem', padding: '20px 30px' }}
 			>
-				My Queue Status
+				Check Queue
 			</Button>
 			<Dialog
 				open={open}
@@ -174,7 +174,7 @@ export default function QueueEnquiryDialog({ setQueueEnqMsg, EnqErrorMsg, setEnq
 				aria-labelledby="alert-dialog-title"
 				aria-describedby="alert-dialog-description"
 			>
-				<DialogTitle id="alert-dialog-title">New Queue</DialogTitle>
+				<DialogTitle id="alert-dialog-title">My Queue</DialogTitle>
 				<DialogContent>
 					<form autoComplete="off" onSubmit={e => handleSubmit(e, EnqNumber)} className={classes.root}>
 						<div>

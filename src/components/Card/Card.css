@@ -57,7 +57,6 @@ h3#headerInfo {
     max-width: -webkit-max-content;
     max-width: 80vw;
     /* padding: 50px; */
-    border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 div#socialIcons {
@@ -90,7 +89,7 @@ h3.qr-code-counter {
     font-size: 14px;
 }
 
-/* ----------------- Form */
+/* ----------------- Take Queue Form */
 p#phoneNo-helper-text, 
 p#paxNo-helper-text {
     color: #fafafa; /* Red color for the error message text */
@@ -187,6 +186,40 @@ svg {
 }
 
 
+/* Check Queue */
+div#myQueueStatus {
+    margin-left: 15px;
+}
+
+.MuiPaper-root.MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthSm.MuiPaper-elevation24.MuiPaper-rounded{
+    max-width: 100%;
+    width: 300px;
+    height: 250px;
+    background-color: #000000d6;
+    color: #fafafa;
+}
+
+button.MuiButton-outlinedPrimary {
+    color: #fafafa;
+    font-family: 'Roboto', sans-serif;
+    text-transform: capitalize;
+    background-color: transparent;
+    font-size: 14px;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    border: none;
+    /* flex-wrap: nowrap; */
+    text-wrap: nowrap;
+    border: 1px solid #ff5244;
+}
+
+button.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary:hover {
+    background: #ff2836d9;
+    border: .5px solid #ff2836d9;
+    box-shadow: 0 0 10px #ff2836d9;
+}
+
 /* ----------------- Divider Row */
 .makeStyles-cardBody-29.QrcodePage-spinnerWrapper-15 {
     display: flex;
@@ -232,24 +265,6 @@ h3.qr-code-counter {
     text-align: center;
 }
 
-button.MuiButton-outlinedPrimary {
-    color: #fafafa;
-    font-family: 'Roboto', sans-serif;
-    text-transform: capitalize;
-    background-color: transparent;
-    font-size: 14px;
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
-    width: fit-content;
-    border: none;
-}
-
-button.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary:hover {
-    background: #ff2836d9;
-    border: .5px solid #ff2836d9;
-    box-shadow: 0 0 10px #ff2836d9;
-}
-
 div#queueRow {
     display: flex;
     flex-direction: row;
@@ -271,7 +286,7 @@ div#queueRow button {
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
     div#formQrRow {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
     }
 
     img#qrcodeImg {
@@ -285,10 +300,6 @@ div#queueRow button {
         font-family: 'Roboto', sans-serif;
     }
 
-    .QrcodePage-qrcodeCard-14 {
-        padding: 5px;
-    }
-
     .MuiButton-label {
         font-size: 0.8rem;
     }
@@ -299,7 +310,9 @@ div#queueRow button {
     form.makeStyles-root-35 {
         margin-top: 20px;
     }
-
+    div#myQueueStatus {
+        margin-left: 30px;
+    }
     img#obbaLogo {
         max-width: 60px;
         height: auto;

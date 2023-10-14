@@ -323,8 +323,6 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 							</Button>
 						</div>
 					</form>
-
 					</div>
-
 	)
 };
