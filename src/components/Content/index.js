@@ -243,6 +243,11 @@ const QrcodePage = ({ classes }) => {
 					</Card>
 				</GridItem>
 			</GridContainer>
+			<div className='infoRow' style={{ display: 'flex'}} id='bottomRowTxt'>
+				<div className='col'>
+					<h4 id="infoMsgBtm">For a better experience, download WhatsApp or Messenger</h4>
+				</div>
+			</div>
 			<div className={classes.logoWrapper} id="logoRow">
 				<img src={ObbaLogo} className={classes.obbaLogoStyle} id="obbaLogo" />
 				<img src={Logo} className={classes.logoStyle} id="ollaLogo" />

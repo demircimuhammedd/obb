@@ -283,6 +283,30 @@ div#queueRow button {
     width: fit-content;
 }
 
+/* Bottom Row with Download Text */
+div#bottomRowTxt {
+    margin: 0 auto;
+}
+
+h4#infoMsgBtm {
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 1.35px;
+    color: #ff5e53;
+    text-shadow: 1px 2px 3px #aa1e14;
+}
+
+/* Queue Summary */
+.MuiPaper-root.MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthSm.MuiPaper-elevation24.MuiPaper-rounded,
+div#alert-dialog-description {
+    color: #fafafa;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+}
+
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
     div#formQrRow {
         display: flex;
