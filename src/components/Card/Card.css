@@ -1,5 +1,13 @@
+/* Body and Layout */
 body {
-    line-height: normal;
+    background: linear-gradient(rgba(1, 0, 6, 0.65),rgba(1, 0, 15, 0.72), rgba(0, 0, 6, 0.62)), url('../../../static/images/obba-dining.jpg');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	min-height: 100vh;
+	overflow: hidden;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
 }
 
 h3.QrcodePage-divider-10 {
@@ -32,6 +40,7 @@ h3#headerInfo {
     justify-content: center;
 }
 
+
 .makeStyles-card-28 {
     color: rgba(255, 255, 255, 0.87);
     width: 100%;
@@ -48,16 +57,16 @@ h3#headerInfo {
     flex-direction: column;
     background: linear-gradient(48deg, #06060670 50%, #3f070778 50%)
 }
-
+/* 
 .QrcodePage-qrcodeCard-14 {
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+   
     border-radius: 50px;
     max-width: -webkit-max-content;
     max-width: 80vw;
+    min-height: 100vh;
     /* padding: 50px; */
-}
+
 
 div#socialIcons {
     display: flex;
@@ -157,7 +166,7 @@ input#name,
 input#phoneNo,
 input#paxNo {
     font-family: 'Caveat', cursive;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     background: #eb28288d;
     padding: 10px 0;
     color: #fafafa;
@@ -165,13 +174,15 @@ input#paxNo {
 }
 
 button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary {
-    border: 1px solid #ff5244;
+    border: 1px solid #ff524480;
     margin: 0 10px;
     color: #fafafa;
+    background-color: #ff524480;
 }
 
 button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary:hover {
     background-color: #ff5244;
+    box-shadow: 0 0 5px #ff5244;
 }
 
 .MuiGrid-root.makeStyles-grid-28.MuiGrid-item.MuiGrid-grid-xs-12.MuiGrid-grid-sm-12.MuiGrid-grid-md-10 {
@@ -200,24 +211,16 @@ div#myQueueStatus {
 }
 
 button.MuiButton-outlinedPrimary {
-    color: #fafafa;
-    font-family: 'Roboto', sans-serif;
-    text-transform: capitalize;
-    background-color: transparent;
-    font-size: 14px;
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
-    width: fit-content;
-    border: none;
-    /* flex-wrap: nowrap; */
-    text-wrap: nowrap;
-    border: 1px solid #ff5244;
+        border: 1px solid #ff524480;
+        margin: 0 auto;
+        color: #fafafa;
+        background-color: #ff524480;
 }
 
 button.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary:hover {
-    background: #ff2836d9;
-    border: .5px solid #ff2836d9;
-    box-shadow: 0 0 10px #ff2836d9;
+    background: #ff5244;
+    border: .5px solid #ff5244;
+    box-shadow: 0 0 5px #ff5244;
 }
 
 /* ----------------- Divider Row */
@@ -260,7 +263,7 @@ img#qrcodeImg {
 h3.qr-code-counter {
     font-family: 'Roboto', sans-serif;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 1rem;
     text-transform: uppercase;
     text-align: center;
 }
@@ -278,9 +281,7 @@ div#formQrRow {
 }
 
 div#queueRow button {
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
-    width: fit-content;
+    width: 30%;
 }
 
 /* Bottom Row with Download Text */
@@ -311,6 +312,10 @@ div#alert-dialog-description {
     div#formQrRow {
         display: flex;
         flex-direction: column;
+    }
+  
+    #checkQueueButton {
+        bottom: 30px;
     }
 
     img#qrcodeImg {
@@ -362,6 +367,9 @@ div#alert-dialog-description {
         font-size: 1rem;
         margin: 20px auto;
     }
+    #checkQueueButton {
+        bottom: 30px;
+    }
 
     div#formQrRow {
         display: flex;
@@ -374,12 +382,11 @@ div#alert-dialog-description {
         box-shadow: 2px 2px 4px 6px #24000330;
     }
     span.MuiButton-label {
-        font-size: 1rem;
+        font-size: 1.25rem;
         font-family: 'Caveat', cursive;
         font-weight: 600;
         letter-spacing: normal;
         text-align: left;
-        /* margin-top: 30px; */
     }
 
     h3.qr-code-counter {
@@ -388,12 +395,6 @@ div#alert-dialog-description {
         font-size: 1rem;
         text-transform: uppercase;
         text-align: center;
-    }
-
-    div#queueRow button {
-        width: -webkit-fit-content;
-        width: -moz-fit-content;
-        width: fit-content;
     }
 
     div#dividerRow {

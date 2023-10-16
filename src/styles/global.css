@@ -6,11 +6,3 @@
 	color: '#db0011 !important';
 }
 
-div#___gatsby {
-    background: linear-gradient(rgba(1, 0, 6, 0.863),rgba(3, 0, 16, 0.701), rgba(1, 0, 6, 0.643)), url('../../static/images/obba-dining.jpg');
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-	min-height: 100vh;
-	overflow: hidden;
-}
