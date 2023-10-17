@@ -9,12 +9,26 @@ body {
     -webkit-backdrop-filter: blur(2px);
 }
 
+.QrcodePage-qrcodeCard-14 {
+    padding: 0;
+}
+
+.makeStyles-card-29 {
+    margin-top: 10px;
+}
+
 h3.QrcodePage-divider-10 {
     font-size: 14px;
     font-weight: 500;
     text-transform: uppercase;
     font-family: 'Work Sans', sans-serif;
     margin-top: 20px;
+}
+
+.Layout-root-1 {
+    display: flex;
+    min-height: 100vh;
+    overflow: hidden;
 }
 
 div#title {
@@ -192,7 +206,6 @@ svg {
     margin: 0 20px;
 }
 
-
 /* Check Queue */
 div#myQueueStatus {
     margin-left: 15px;
@@ -306,6 +319,8 @@ div#alert-dialog-description {
 }
 
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    
+    
     div#formQrRow {
         display: flex;
         flex-direction: column;
@@ -365,7 +380,7 @@ div#alert-dialog-description {
         margin: 20px auto;
     }
     #checkQueueButton {
-        bottom: 30px;
+        bottom: 10px;
     }
 
     div#formQrRow {

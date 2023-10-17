@@ -162,8 +162,7 @@ const QrcodePage = ({ classes }) => {
 				>
 					<Card className={classes.qrcodeCard}>
 						<div className="form-grid" id="formQrRow">					
-							<CardBody id="takeQueueRow">
-								
+							<CardBody id="takeQueueRow">				
 								<div id="whatsapp" style={{display: 'flex', justifyContent: 'center'}}>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
