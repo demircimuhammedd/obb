@@ -4,7 +4,7 @@ import awsIot from 'aws-iot-device-sdk'
 import React, { useEffect, useState } from 'react'
 import Logo from '../../../static/images/cloudE8.png'
 import ObbaLogo from '../../../static/images/obba-logo.png'
-import { awsIotConfig, company, env, HOST, outletAbbr, getOutletFullname} from '../../utils/config.js'
+import { awsIotConfig, company, env, HOST, outletAbbr, getOutletFullname } from '../../utils/config.js'
 import Card from '../Card/Card.js'
 import CardBody from '../Card/CardBody.js'
 import QueueDialog from '../Dialog/QueueDialog'
@@ -161,9 +161,10 @@ const QrcodePage = ({ classes }) => {
 					style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}
 				>
 					<Card className={classes.qrcodeCard}>
-						<div className="form-grid" id="formQrRow">
-							<CardBody className={classes.spinnerWrapper} id="takeQueueRow">
-								<div id="whatsapp">
+						<div className="form-grid" id="formQrRow">					
+							<CardBody id="takeQueueRow">
+								
+								<div id="whatsapp" style={{display: 'flex', justifyContent: 'center'}}>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										height="1em"
@@ -185,17 +186,17 @@ const QrcodePage = ({ classes }) => {
 											setServerErrorMsg={setServerErrorMsg}
 											queueMaxPax={queueSettings.maxPax}
 										/>
-									) : (								
-								<QueueInfoDialog
+									) : (
+										<QueueInfoDialog
 											queueNumber={queueNumber}
 											setQueueNumber={setQueueNumber}
 											serverErrorMsg={serverErrorMsg}
 											setServerErrorMsg={setServerErrorMsg}
 										/>
 									)}
-									</div>
+								</div>
 							</CardBody>
-						
+					
 							{queueSettings.takingQueueProcess && queueSettings.qrCodeFBDisplay && (
 								<CardBody className={classes.spinnerWrapper} id="qrCodeRow">
 									<div id="fbMessenger">
@@ -219,11 +220,15 @@ const QrcodePage = ({ classes }) => {
 									</h3>
 								</CardBody>
 							)}
+							{/* <CardFooter className={classes.cardFooter}>
+								<QueueDialog />
+							</CardFooter> */}
 						</div>
 					</Card>
 				</GridItem>
 			</GridContainer>
-				<div id="myQueueStatus" style={{ display: 'flex', justifyContent: 'center' }}>
+			<CardBody className={classes.spinnerWrapper} id="checkQueueButton">
+				<div id="myQueueStatus">
 					{!queueEnqMsg && !EnqErrorMsg ? (
 						<QueueEnquiryDialog
 							setQueueEnqMsg={setQueueEnqMsg}
@@ -240,6 +245,10 @@ const QrcodePage = ({ classes }) => {
 						/>
 					)}
 				</div>
+			</CardBody>
+			{/* <CardFooter className={classes.cardFooter}>
+								<QueueDialog />
+							</CardFooter> */}
 			<div className="infoRow" style={{ display: 'flex' }} id="bottomRowTxt">
 				<div className="col">
 					<h4 id="infoMsgBtm">For a better experience, download WhatsApp or Messenger</h4>
@@ -252,5 +261,10 @@ const QrcodePage = ({ classes }) => {
 		</div>
 	)
 }
+
+<div className="success-message">
+	<p>Form submitted successfully!</p>
+	<button onClick={() => setIsSuccess(false)}>Close</button>
+</div>
 
 export default withStyles(qrcodePageStyle)(QrcodePage)

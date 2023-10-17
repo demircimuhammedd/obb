@@ -32,12 +32,12 @@ export default function QueueInfoDialog({ queueNumber, setQueueNumber, serverErr
 				onClose={handleClose}
 				disableBackdropClick
 				disableEscapeKeyDown
-				aria-labelledby="alert-dialog-title"
-				aria-describedby="alert-dialog-description"
+				aria-labelledby="alert-dialog-title-2"
+				aria-describedby="alert-dialog-description-2"
 			>
-				<DialogTitle id="alert-dialog-title"><span style={{ fontSize: '50px', fontWeight: '800', textAlign: 'center', color: '#000', textDecoration: 'uppercase' }}>Queue info</span></DialogTitle>
+				<DialogTitle id="alert-dialog-title-2"><span style={{ fontSize: '50px', fontWeight: '800', textAlign: 'center', color: '#000', textDecoration: 'uppercase', display: 'flex', justifyContent: 'center' }}>Queue info</span></DialogTitle>
 				<DialogContent>
-					<DialogContentText id="alert-dialog-description">
+					<DialogContentText id="alert-dialog-description-2">
 						{serverErrorMsg ? (
 							serverErrorMsg
 						) : (
