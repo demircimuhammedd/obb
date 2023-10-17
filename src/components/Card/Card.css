@@ -5,7 +5,6 @@ body {
 	background-repeat: no-repeat;
 	background-size: cover;
 	min-height: 100vh;
-	overflow: hidden;
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
 }
@@ -14,7 +13,7 @@ h3.QrcodePage-divider-10 {
     font-size: 14px;
     font-weight: 500;
     text-transform: uppercase;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Work Sans', sans-serif;
     margin-top: 20px;
 }
 
@@ -24,9 +23,9 @@ div#title {
 }
 
 h3#headerInfo {
-    font-size: 1.25rem;
+    font-size: 25px;
     font-weight: 800;
-    font-family: 'Caveat', serif;
+    font-family: 'Work Sans', sans-serif;
     margin-top: 20px;
     text-align: center;
 }
@@ -47,7 +46,7 @@ h3#headerInfo {
     border: 0;
     display: flex;
     position: relative;
-    font-size: .875rem;
+    font-size: 20px;
     min-width: 0;
     word-wrap: break-word;
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
@@ -57,16 +56,6 @@ h3#headerInfo {
     flex-direction: column;
     background: linear-gradient(48deg, #06060670 50%, #3f070778 50%)
 }
-/* 
-.QrcodePage-qrcodeCard-14 {
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-   
-    border-radius: 50px;
-    max-width: -webkit-max-content;
-    max-width: 80vw;
-    min-height: 100vh;
-    /* padding: 50px; */
-
 
 div#socialIcons {
     display: flex;
@@ -103,11 +92,10 @@ p#phoneNo-helper-text,
 p#paxNo-helper-text {
     color: #fafafa; /* Red color for the error message text */
     font-size: 12px;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Work Sans', sans-serif;
     text-transform: uppercase;
     font-weight: 500;
     text-align: left;
-    /* Add any additional styling you want, such as margin, padding, or font family */
 }
 
 input::-webkit-input-placeholder {
@@ -153,36 +141,44 @@ input {
 label#paxNo-label,
 label#phoneNo-label,
 label#name-label {
-    font-family: 'Roboto' sans-serif;
-    font-size: 12px;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 20px;
     color: #ffb7a4;
     font-weight: 600;
     text-transform: uppercase;
-    margin: 5px auto;
     z-index: 1000;
 }
 
 input#name,
 input#phoneNo,
 input#paxNo {
-    font-family: 'Caveat', cursive;
-    font-size: 1.5rem;
-    background: #eb28288d;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 30px;
+    background: #eb2828d3;
     padding: 10px 0;
     color: #fafafa;
     margin: 8px auto;
+}
+
+.MuiInputBase-root {
+    font-weight: 600;
 }
 
 button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary {
     border: 1px solid #ff524480;
     margin: 0 10px;
     color: #fafafa;
-    background-color: #ff524480;
+    background-color: rgba(198, 45, 34, 0.996);
 }
 
 button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary:hover {
     background-color: #ff5244;
     box-shadow: 0 0 5px #ff5244;
+}
+
+.MuiButton-label {
+    font-size: 16px;
+    font-weight: 600;
 }
 
 .MuiGrid-root.makeStyles-grid-28.MuiGrid-item.MuiGrid-grid-xs-12.MuiGrid-grid-sm-12.MuiGrid-grid-md-10 {
@@ -192,7 +188,7 @@ button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary:ho
 svg {
     fill: #ff5244;
     text-shadow: 1px 3px 6px #ffafaf;
-    font-size: 3rem;
+    font-size: 60px;
     margin: 0 20px;
 }
 
@@ -204,18 +200,15 @@ div#myQueueStatus {
 
 .MuiPaper-root.MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthSm.MuiPaper-elevation24.MuiPaper-rounded{
     max-width: 100%;
-    width: 300px;
-    height: 250px;
-    background-color: #000000d6;
+    background-color: #fafafa;
     color: #fafafa;
 }
 
 button.MuiButton-outlinedPrimary {
-        border: 1px solid #ff524480;
         margin: 0 auto;
         color: #fafafa;
-        background-color: #ff524480;
-}
+        background-color: rgba(198, 45, 34, 0.996);
+    }
 
 button.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary:hover {
     background: #ff5244;
@@ -231,7 +224,7 @@ button.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPr
 }
 
 .QrcodePage-counterNum-22 {
-    font-family: 'Caveat', cursive;
+    font-family: 'Work Sans', sans-serif;
 }
 
 div.makeStyles-cardBody-29.QrcodePage-spinnerWrapper-15 {
@@ -247,13 +240,6 @@ div.makeStyles-cardBody-29.QrcodePage-spinnerWrapper-15 {
     -webkit-box-flex: 1;
 }
 
-span.MuiButton-label {
-    font-size: 1rem;
-    letter-spacing: 1px;
-    font-family: 'Caveat', cursive;
-    font-weight: 600;
-}
-
 img#qrcodeImg {
     max-width: 150px;
     box-shadow: 2px 2px 4px 6px #24000330;
@@ -261,7 +247,7 @@ img#qrcodeImg {
 }
 
 h3.qr-code-counter {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Work Sans', sans-serif;
     font-weight: 600;
     font-size: 1rem;
     text-transform: uppercase;
@@ -291,21 +277,20 @@ div#bottomRowTxt {
 
 h4#infoMsgBtm {
     text-transform: uppercase;
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
     text-align: center;
-    letter-spacing: 1.35px;
-    color: #ff5e53;
-    text-shadow: 1px 2px 3px #aa1e14;
+    letter-spacing: 1.25px;
+    color: #fafafa;
 }
 
 /* Queue Summary */
 .MuiPaper-root.MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthSm.MuiPaper-elevation24.MuiPaper-rounded,
 div#alert-dialog-description {
-    color: #fafafa;
+    color: #0a0a0a;
     font-size: 1rem;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Work Sans', sans-serif;
 }
 
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
@@ -326,11 +311,11 @@ div#alert-dialog-description {
     h3.QrcodePage-divider-10 {
         font-size: 1rem;
         text-transform: uppercase;
-        font-family: 'Roboto', sans-serif;
+        font-family: 'Work Sans', sans-serif;
     }
 
     .MuiButton-label {
-        font-size: 0.8rem;
+        font-size: 18px;
     }
 
     .QrcodePage-qrcodeCard-96 {
@@ -353,9 +338,9 @@ div#alert-dialog-description {
     }
 
     h3#headerInfo {
-        font-size: 1.5rem;
+        font-size: 30px;
         font-weight: 800;
-        font-family: 'Caveat', serif;
+        font-family: 'Work Sans', sans-serif;
         margin-top: 20px;
         text-align: center;
     }
@@ -364,7 +349,7 @@ div#alert-dialog-description {
 
 @media screen and (min-width: 768px) {
     h3.QrcodePage-divider-10 {
-        font-size: 1rem;
+        font-size: 30px;
         margin: 20px auto;
     }
     #checkQueueButton {
@@ -382,17 +367,18 @@ div#alert-dialog-description {
         box-shadow: 2px 2px 4px 6px #24000330;
     }
     span.MuiButton-label {
-        font-size: 1.25rem;
-        font-family: 'Caveat', cursive;
+        font-size: 18px;
+        font-family: 'Work Sans', sans-serif;
         font-weight: 600;
         letter-spacing: normal;
         text-align: left;
+        text-transform: capitalize;
     }
 
     h3.qr-code-counter {
-        font-family: 'Roboto', sans-serif;
+        font-family: 'Work Sans', sans-serif;
         font-weight: 600;
-        font-size: 1rem;
+        font-size: 20px;
         text-transform: uppercase;
         text-align: center;
     }
@@ -407,9 +393,9 @@ div#alert-dialog-description {
     }
 
     h3#headerInfo {
-        font-size: 1.5rem;
+        font-size: 25px;
         font-weight: 800;
-        font-family: 'Caveat', serif;
+        font-family: 'Work Sans', sans-serif;
         margin-top: 20px;
         text-align: center;
     }
