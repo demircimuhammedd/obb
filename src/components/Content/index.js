@@ -2,22 +2,19 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import withStyles from '@material-ui/core/styles/withStyles'
 import awsIot from 'aws-iot-device-sdk'
 import React, { useEffect, useState } from 'react'
-import ReactDOM from 'react-dom'
 import Logo from '../../../static/images/cloudE8.png'
 import ObbaLogo from '../../../static/images/obba-logo.png'
-import { awsIotConfig, company, env, HOST, outletAbbr, getOutletFullname } from '../../utils/config.js'
+import { awsIotConfig, company, env, HOST, outletAbbr, getOutletFullname} from '../../utils/config.js'
 import Card from '../Card/Card.js'
 import CardBody from '../Card/CardBody.js'
 import QueueDialog from '../Dialog/QueueDialog'
-import QueueEnquiryDialog from '../Dialog/QueueEnquiryDialog'
-import QueueEnqInfoDialog from '../Dialog/QueueEnqInfoDialog'
 import QueueInfoDialog from '../Dialog/QueueInfoDialog'
+import QueueEnqInfoDialog from '../Dialog/QueueEnqInfoDialog'
+import QueueEnquiryDialog from '../Dialog/QueueEnquiryDialog'
 import GridContainer from '../Grid/GridContainer.js'
 import GridItem from '../Grid/GridItem.js'
 import qrcodePageStyle from './styles.js'
-import CustomForm from '../CustomForm/CustomForm'
 import initFontAwesome from '../../scripts/initFontAwesome'
-import { CardHeader } from '@material-ui/core'
 
 // Initialize Font Awesome
 initFontAwesome()
@@ -188,16 +185,17 @@ const QrcodePage = ({ classes }) => {
 											setServerErrorMsg={setServerErrorMsg}
 											queueMaxPax={queueSettings.maxPax}
 										/>
-									) : (
-										<QueueInfoDialog
+									) : (								
+								<QueueInfoDialog
 											queueNumber={queueNumber}
 											setQueueNumber={setQueueNumber}
 											serverErrorMsg={serverErrorMsg}
 											setServerErrorMsg={setServerErrorMsg}
 										/>
 									)}
-								</div>
+									</div>
 							</CardBody>
+						
 							{queueSettings.takingQueueProcess && queueSettings.qrCodeFBDisplay && (
 								<CardBody className={classes.spinnerWrapper} id="qrCodeRow">
 									<div id="fbMessenger">
@@ -225,7 +223,6 @@ const QrcodePage = ({ classes }) => {
 					</Card>
 				</GridItem>
 			</GridContainer>
-			<CardBody className={classes.spinnerWrapper} id="checkQueueButton">
 				<div id="myQueueStatus">
 					{!queueEnqMsg && !EnqErrorMsg ? (
 						<QueueEnquiryDialog
@@ -243,7 +240,6 @@ const QrcodePage = ({ classes }) => {
 						/>
 					)}
 				</div>
-			</CardBody>
 			<div className="infoRow" style={{ display: 'flex' }} id="bottomRowTxt">
 				<div className="col">
 					<h4 id="infoMsgBtm">For a better experience, download WhatsApp or Messenger</h4>
@@ -256,10 +252,5 @@ const QrcodePage = ({ classes }) => {
 		</div>
 	)
 }
-
-;<div className="success-message">
-	<p>Form submitted successfully!</p>
-	<button onClick={() => setIsSuccess(false)}>Close</button>
-</div>
 
 export default withStyles(qrcodePageStyle)(QrcodePage)
