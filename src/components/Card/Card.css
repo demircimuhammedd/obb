@@ -181,12 +181,6 @@ button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary:ho
     font-weight: 600;
 }
 
-.makeStyles-buttonWrapper-48 {
-    display: flex;
-    margin-top: 20px;
-    justify-content: center;
-}
-
 .MuiGrid-root.makeStyles-grid-28.MuiGrid-item.MuiGrid-grid-xs-12.MuiGrid-grid-sm-12.MuiGrid-grid-md-10 {
     justify-content: center;
 }

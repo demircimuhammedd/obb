@@ -223,7 +223,7 @@ const QrcodePage = ({ classes }) => {
 					</Card>
 				</GridItem>
 			</GridContainer>
-				<div id="myQueueStatus">
+				<div id="myQueueStatus" style={{ display: 'flex', justifyContent: 'center' }}>
 					{!queueEnqMsg && !EnqErrorMsg ? (
 						<QueueEnquiryDialog
 							setQueueEnqMsg={setQueueEnqMsg}

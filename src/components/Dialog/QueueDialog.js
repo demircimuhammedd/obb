@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
 	},
 	buttonWrapper: {
 		display: 'flex',
-		justifyContent: 'flex-end',
+		justifyContent: 'center',
 		marginTop: '20px',
 	},
 	switchWrapper: {
