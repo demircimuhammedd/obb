@@ -293,6 +293,18 @@ div#alert-dialog-description {
     font-family: 'Work Sans', sans-serif;
 }
 
+/* Queue Info Dialog */
+.queueDialogContent {
+    font-family: 'Work Sans', sans-serif;
+    text-align: center;
+}
+
+.MuiDialogContent-root {
+    color: #0a0a0a;
+    text-align: center;
+    margin: 10px;
+}
+
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
     div#formQrRow {
         display: flex;
