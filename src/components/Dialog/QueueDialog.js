@@ -8,6 +8,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import { PhoneNumberFormat, PhoneNumberUtil } from 'google-libphonenumber'
 import React, { useState } from 'react'
 import { HOST, getOutletFullname, outletAbbr } from '../../utils/config'
+import clsx from 'clsx'
+import classNames from 'classnames'
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -56,6 +58,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerErrorMsg, queueMaxPax }) {
+	const classes = useStyles()
 	const [open, setOpen] = useState(false)
 	const [buttonHidden, setButtonHidden] = useState(false)
 	const [outletFullname, setOutletFullname] = useState(getOutletFullname(outletAbbr))
@@ -80,36 +83,9 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 			label: 'Female',
 		},
 	]
-	// const [gender, setGender] = React.useState('male');
+	const [phoneNo, setPhoneNo] = useState('');
+	const [valid, setValid] = useState(true);
 	const [phoneErrorMsg, setPhoneErrorMsg] = useState('')
-
-	const classes = useStyles()
-
-	const validatePhoneNumber = phoneNo => {
-		let isValid = false
-		let hasCountryCode = false
-		let formattedNumber = ''
-		let errorMsg = ''
-
-		const phoneUtil = PhoneNumberUtil.getInstance()
-
-		try {
-			const parsedNumber = phoneUtil.parseAndKeepRawInput(phoneNo)
-			isValid = phoneUtil.isValidNumber(parsedNumber)
-			hasCountryCode = parsedNumber.hasCountryCode()
-			formattedNumber = phoneUtil.format(parsedNumber, PhoneNumberFormat.E164)
-
-			if (!hasCountryCode) {
-				errorMsg = 'Please include the country code.'
-			} else if (!isValid) {
-				errorMsg = 'Invalid phone number.'
-			}
-		} catch (e) {
-			errorMsg = e.message ? e.message : 'Invalid phone number.'
-		}
-
-		return { isValid, hasCountryCode, formattedNumber, errorMsg }
-	}
 
 	const handleClickOpen = () => {
 		setOpen(true)
@@ -131,25 +107,24 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 
 	const handleChange = event => {
 		const id = event.target.id
-		let phoneNo = event.target.value.trim()
-		if (phoneNo[0] !== '+') phoneNo = '+' + phoneNo
-		const { errorMsg } = validatePhoneNumber(phoneNo)
-		if (id === 'phoneNo') {
-			setPhoneErrorMsg(errorMsg)
-			setNewQueue({ ...newQueue, phoneNo: phoneNo })
-		}
-		// else if(id === 'validator'){
-		// 	setNewQueue({ ...newQueue, [id]: event.target.checked })
+		const input = event.target.value;
+		setPhoneNo(input);
+		setValid(validatePhoneNumber(input));
+	};
+
+	const validatePhoneNumber = (phoneNo) => {
+		const phoneNumberPattern = /^\d{10}$/;
+		return phoneNumberPattern.test(phoneNo);
+	}
+				// else {
+		// 	setNewQueue({ ...newQueue, [id]: event.target.value })
 		// }
-		else {
-			setNewQueue({ ...newQueue, [id]: event.target.value })
-		}
 		// setGender(event.target.value);
 		// console.log(event.target.value)
-		if (id === 'validator') {
-			setjoinMember(event.target.checked)
-		}
-	}
+	// 	if (id === 'validator') {
+	// 		setjoinMember(event.target.checked)
+	// 	}
+	// }
 
 	const handleSubmit = (e, newQueue) => {
 		e.preventDefault()
@@ -273,19 +248,20 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 								autoFocus={true}
 							/>
 							<TextField
+
 								margin="normal"
 								fullWidth
 								variant="outlined"
 								id="phoneNo"
 								label="Phone Number"
 								type="tel"
-								value={newQueue.phoneNo}
+								value={phoneNo}
 								onChange={handleChange}
-								helperText={phoneErrorMsg}
 								required
 								autoFocus={true}
 
 							/>
+							{! valid && <p>Please enter a valid 10 digit number</p> }
 							<TextField
 								margin="normal"
 								fullWidth
