@@ -62,7 +62,6 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerErrorMsg, queueMaxPax }) {
-	const [open, setOpen] = useState(false)
 	const [buttonHidden, setButtonHidden] = useState(false)
 	const [outletFullname, setOutletFullname] = useState(getOutletFullname(outletAbbr))
 	const [newQueue, setNewQueue] = useState({
@@ -76,69 +75,55 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 		outlet: outletFullname,
 	})
 	const [joinMember, setjoinMember] = useState(false)
-	const genders = [
-		{
-			value: 'male',
-			label: 'Male',
-		},
-		{
-			value: 'female',
-			label: 'Female',
-		},
-	]
-	const [phoneNo, setPhoneNo] = useState('');
 	const [valid, setValid] = useState(true);
 	const [phoneErrorMsg, setPhoneErrorMsg] = useState('')
 	const classes = useStyles()
+	const [open, setOpen] = useState(false)
+	const [phoneNo, setPhoneNo] = useState('');
 
-	const handleClickOpen = () => {
-		setOpen(true)
-	}
-
-	const handleClose = () => {
-		setOpen(false)
-		setNewQueue({
-			name: '',
-			phoneNo: '',
-			paxNo: '',
-			birthDate: '',
-			gender: 'male',
-			member: false,
-			email: '',
-			outlet: outletFullname,
-		})
-	}
-
-	const handleChange = (value) => {
-		const id = event.target.id
+	const handleChange = value => {
+		const id = event.target.id;
 		if (id === 'phoneNo') {
-			setPhoneNo(value);
-			setValid(validatePhoneNumber(value));
-		}
-		else {
-			setNewQueue({ ...newQueue, [id]: event.target.value })
+		  setPhoneNo(value);
+		  setValid(validatePhoneNumber(value));
+		} else {
+		  setNewQueue({ ...newQueue, [id]: event.target.value });
 		}
 		if (id === 'validator') {
-			setjoinMember(event.target.checked)
+		  setjoinMember(event.target.checked);
 		}
-	}
+		console.log('HandleChange event:', event);
+		console.log('New Queue:', newQueue);
+	  }
 
 	const validatePhoneNumber = (phoneNo) => {
-		const phoneNumberPattern = /^\d{11}$/;
-		return phoneNumberPattern.test(phoneNo);
-	}
+		const phoneNumberPattern = /^\d{10}$/;
+		if (!phoneNumberPattern.test(phoneNo)) {
+			return {
+				isValid: false,
+				errorMsg: 'Invalid phone number format',
+			};
+		}
+		const [, countryCode, formattedNumber] = phoneNo.match(phoneNumberPattern);
+
+		return {
+			isValid: true,
+			hasCountryCode: true,
+			formattedNumber: `+${countryCode}${formattedNumber}`,
+		};
+	};
 
 	const handleSubmit = (e, newQueue) => {
-		e.preventDefault()
-		const { isValid, hasCountryCode, formattedNumber, errorMsg } = validatePhoneNumber(newQueue.phoneNo)
-		if (!isValid || !hasCountryCode) {
-			setPhoneErrorMsg(errorMsg)
-			return
-		}
-		const updatedQueue = {
-			...newQueue,
-			phoneNo: formattedNumber.replace(/\+/g, ''),
-			member: joinMember,
+		e.preventDefault();
+		const { isValid, hasCountryCode, formattedNumber, errorMsg } = validatePhoneNumber(newQueue.phoneNo);
+		
+		// Add console.log for debugging
+		console.log('HandleSubmit event:', e);
+		console.log('New Queue:', newQueue);
+		
+		if (!isValid) {
+		  setPhoneErrorMsg(errorMsg);
+		  return;
 		}
 		console.log(updatedQueue)
 		const postData = async newQueue => {
@@ -171,131 +156,73 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 		})
 	}
 
+	const handleClickOpen = () => {
+		setOpen(true);
+	  }
 
-	const renderMemberRegister = () => {
-		if (joinMember === true) {
-			return (
-				<div>
-					<TextField
-						fullWidth
-						variant="outlined"
-						id="email"
-						label="Email Address"
-						type="email"
-						value={newQueue.email}
-						onChange={handleChange}
-						InputLabelProps={{
-							shrink: true,
-						}}
-						required
-					/>
-					<br />
-					<TextField
-						fullWidth
-						variant="outlined"
-						id="birthDate"
-						label="Date of Birth"
-						type="date"
-						value={newQueue.birthDate}
-						// defaultValue="09-09-1999"
-						onChange={handleChange}
-						InputLabelProps={{
-							shrink: true,
-						}}
-						required
-					/>
+	const handleClose = () => {
+	setOpen(false);
+	setNewQueue({
+		name: '',
+		phoneNo: '',
+		paxNo: '',
+		birthDate: '',
+		gender: 'male',
+		member: false,
+		email: '',
+		outlet: outletFullname,
+	});
+}
 
-					<TextField
-						margin="normal"
-						fullWidth
-						variant="outlined"
-						id="gender"
-						label="Gender"
-						select
-						SelectProps={{
-							native: true,
-						}}
-						value={newQueue.gender}
-						onChange={handleChange}
-						InputLabelProps={{
-							shrink: true,
-						}}
-						required
-					>
-						{genders.map(option => (
-							<option key={option.value} value={option.value}>
-								{option.label}
-							</option>
-						))}
-					</TextField>
-				</div>
-			)
-		}
-	}
 
 	return (
-		<div>
-			<form autoComplete="off" onSubmit={e => handleSubmit(e, newQueue)} className={classes.root}>
-							<TextField
-								margin="normal"
-								fullWidth
-								variant="outlined"
-								id="name"
-								label="Name"
-								value={newQueue.name}
-								onChange={handleChange}
-								type="text"
-								required
-								autoFocus={true}
-							/>
-							<PhoneInput
-								country={'sg'}
-								margin="normal"
-								fullWidth
-								variant="outlined"
-								id="phoneNo"
-								label="Phone Number"
-								type="tel"
-								value={newQueue.phoneNo}
-								onChange={handleChange}
-								autoFocus={true}
-							/>
-							{! valid && <p>Please enter a valid 10 digit number</p> }
-							<TextField
-								margin="normal"
-								fullWidth
-								variant="outlined"
-								id="paxNo"
-								label="Party Size"
-								type="number"
-								value={newQueue.paxNo}
-								onChange={handleChange}
-								required
-								InputProps={{ inputProps: { min: 1, max: queueMaxPax } }}
-							/>
-								{/* <FormControlLabel
-								label="Join Member"
-								control={
-									<Checkbox
-										variant="outlined"
-										checked={joinMember}
-										onChange={handleChange}
-										id="validator"
-										name="validator"
-										color="primary"
-									/>
-								}
-							/>
-							{renderMemberRegister()} */}
-						<div className={classes.buttonWrapper}>
-							<Button onClick={handleClose} color="primary">
-								Cancel
-							</Button>
-							<Button type="submit" color="primary" disabled={buttonHidden}>
-								Add
-							</Button>
-						</div>
-					</form>
-					</div>
-	)
+		<form autoComplete="off" onSubmit={(e) => handleSubmit(e, newQueue)} className={classes.root}>
+			<TextField
+				margin="normal"
+				fullWidth
+				variant="outlined"
+				id="name"
+				label="Name"
+				value={newQueue.name}
+				onChange={handleChange}
+				type="text"
+				required
+				autoFocus={true}
+			/>
+			<label>Phone Input</label>
+			<PhoneInput
+				margin="normal"
+				fullWidth
+				variant="outlined"
+				id="phoneNo"
+				label="Phone Number"
+				type="tel"
+				value={newQueue.phoneNo}
+				onChange={(value, event) => handleChange(value, event)}
+				autoFocus={true}
+			/>
+			{!valid && <p>Please enter a valid 10 digit number</p>}
+			<TextField
+				margin="normal"
+				fullWidth
+				variant="outlined"
+				id="paxNo"
+				label="Party Size"
+				type="number"
+				value={newQueue.paxNo}
+				onChange={handleChange}
+				required
+				InputProps={{ inputProps: { min: 1, max: queueMaxPax } }}
+			/>
+	
+			<div className={classes.buttonWrapper}>
+				<Button onClick={handleClose} color="primary">
+					Cancel
+				</Button>
+				<Button type="submit" color="primary" disabled={buttonHidden}>
+					Add
+				</Button>
+			</div>
+		</form>
+	);	
 };
