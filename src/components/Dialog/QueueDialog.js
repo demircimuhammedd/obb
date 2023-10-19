@@ -7,9 +7,9 @@ import TextField from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/core/styles'
 import React, { useState } from 'react'
 import { HOST, getOutletFullname, outletAbbr } from '../../utils/config'
-import PhoneInput from 'react-phone-input-2';
+import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
-import './QueueDialog.css';
+import './QueueDialog.css'
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -57,7 +57,7 @@ const useStyles = makeStyles(theme => ({
 	},
 	PhoneInput: {
 		minWidth: '100vw',
-		border: '5px solid pink'
+		border: '5px solid pink',
 	},
 }))
 
@@ -75,55 +75,72 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 		outlet: outletFullname,
 	})
 	const [joinMember, setjoinMember] = useState(false)
-	const [valid, setValid] = useState(true);
+	const [valid, setValid] = useState(true)
 	const [phoneErrorMsg, setPhoneErrorMsg] = useState('')
 	const classes = useStyles()
 	const [open, setOpen] = useState(false)
-	const [phoneNo, setPhoneNo] = useState('');
+	const [phoneNo, setPhoneNo] = useState('')
 
 	const handleChange = value => {
-		const id = event.target.id;
+		const id = event.target.id
 		if (id === 'phoneNo') {
-		  setPhoneNo(value);
-		  setValid(validatePhoneNumber(value));
+			setPhoneNo(value)
+			setValid(validatePhoneNumber(value))
 		} else {
-		  setNewQueue({ ...newQueue, [id]: event.target.value });
+			setNewQueue({ ...newQueue, [id]: event.target.value })
 		}
 		if (id === 'validator') {
-		  setjoinMember(event.target.checked);
+			setjoinMember(event.target.checked)
 		}
-		console.log('HandleChange event:', event);
-		console.log('New Queue:', newQueue);
-	  }
+		console.log('HandleChange event:', event)
+		console.log('New Queue:', newQueue)
+	}
 
-	const validatePhoneNumber = (phoneNo) => {
-		const phoneNumberPattern = /^\d{10}$/;
+	const validatePhoneNumber = phoneNo => {
+		const phoneNumberPattern = /^\d{10}$/
 		if (!phoneNumberPattern.test(phoneNo)) {
 			return {
-				isValid: false,
+				valid: false,
 				errorMsg: 'Invalid phone number format',
-			};
+			}
 		}
-		const [, countryCode, formattedNumber] = phoneNo.match(phoneNumberPattern);
+		const [countryCode, formattedNumber] = phoneNo.match(phoneNumberPattern)
 
 		return {
-			isValid: true,
+			valid: true,
 			hasCountryCode: true,
 			formattedNumber: `+${countryCode}${formattedNumber}`,
-		};
-	};
+		}
+	}
+
+	const handleClickOpen = () => {
+		setOpen(true)
+	}
+
+	const handleClose = () => {
+		setOpen(false)
+		setNewQueue({
+			name: '',
+			phoneNo: '',
+			paxNo: '',
+			birthDate: '',
+			gender: 'male',
+			member: false,
+			email: '',
+			outlet: outletFullname,
+		})
+	}
 
 	const handleSubmit = (e, newQueue) => {
-		e.preventDefault();
-		const { isValid, hasCountryCode, formattedNumber, errorMsg } = validatePhoneNumber(newQueue.phoneNo);
-		
-		// Add console.log for debugging
-		console.log('HandleSubmit event:', e);
-		console.log('New Queue:', newQueue);
-		
-		if (!isValid) {
-		  setPhoneErrorMsg(errorMsg);
-		  return;
+		e.preventDefault()
+		if (!valid) {
+			setPhoneErrorMsg(phoneErrorMsg)
+			return
+		}
+		const updatedQueue = {
+			...newQueue,
+			phoneNo: phoneNo,
+			member: joinMember,
 		}
 		console.log(updatedQueue)
 		const postData = async newQueue => {
@@ -156,27 +173,8 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 		})
 	}
 
-	const handleClickOpen = () => {
-		setOpen(true);
-	  }
-
-	const handleClose = () => {
-	setOpen(false);
-	setNewQueue({
-		name: '',
-		phoneNo: '',
-		paxNo: '',
-		birthDate: '',
-		gender: 'male',
-		member: false,
-		email: '',
-		outlet: outletFullname,
-	});
-}
-
-
 	return (
-		<form autoComplete="off" onSubmit={(e) => handleSubmit(e, newQueue)} className={classes.root}>
+		<form autoComplete="off" onSubmit={e => handleSubmit(e, newQueue)} className={classes.root}>
 			<TextField
 				margin="normal"
 				fullWidth
@@ -198,7 +196,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 				label="Phone Number"
 				type="tel"
 				value={newQueue.phoneNo}
-				onChange={(value, event) => handleChange(value, event)}
+				onChange={handleChange}
 				autoFocus={true}
 			/>
 			{!valid && <p>Please enter a valid 10 digit number</p>}
@@ -214,15 +212,15 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 				required
 				InputProps={{ inputProps: { min: 1, max: queueMaxPax } }}
 			/>
-	
+
 			<div className={classes.buttonWrapper}>
 				<Button onClick={handleClose} color="primary">
 					Cancel
 				</Button>
-				<Button type="submit" color="primary" disabled={buttonHidden}>
+				<Button type="submit" color="primary" disabled={buttonHidden} onClick={handleSubmit}>
 					Add
 				</Button>
 			</div>
 		</form>
-	);	
-};
+	)
+}
