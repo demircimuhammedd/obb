@@ -5,7 +5,6 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import TextField from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/core/styles'
-import { PhoneNumberFormat, PhoneNumberUtil } from 'google-libphonenumber'
 import React, { useState } from 'react'
 import { HOST, getOutletFullname, outletAbbr } from '../../utils/config'
 import PhoneInput from 'react-phone-input-2';
@@ -63,7 +62,6 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerErrorMsg, queueMaxPax }) {
-	const classes = useStyles()
 	const [open, setOpen] = useState(false)
 	const [buttonHidden, setButtonHidden] = useState(false)
 	const [outletFullname, setOutletFullname] = useState(getOutletFullname(outletAbbr))
@@ -91,6 +89,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 	const [phoneNo, setPhoneNo] = useState('');
 	const [valid, setValid] = useState(true);
 	const [phoneErrorMsg, setPhoneErrorMsg] = useState('')
+	const classes = useStyles()
 
 	const handleClickOpen = () => {
 		setOpen(true)
@@ -111,23 +110,23 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 	}
 
 	const handleChange = (value) => {
-		setPhoneNo(value);
-		setValid(validatePhoneNumber(value));
-	};
+		const id = event.target.id
+		if (id === 'phoneNo') {
+			setPhoneNo(value);
+			setValid(validatePhoneNumber(value));
+		}
+		else {
+			setNewQueue({ ...newQueue, [id]: event.target.value })
+		}
+		if (id === 'validator') {
+			setjoinMember(event.target.checked)
+		}
+	}
 
 	const validatePhoneNumber = (phoneNo) => {
 		const phoneNumberPattern = /^\d{11}$/;
 		return phoneNumberPattern.test(phoneNo);
 	}
-				// else {
-		// 	setNewQueue({ ...newQueue, [id]: event.target.value })
-		// }
-		// setGender(event.target.value);
-		// console.log(event.target.value)
-	// 	if (id === 'validator') {
-	// 		setjoinMember(event.target.checked)
-	// 	}
-	// }
 
 	const handleSubmit = (e, newQueue) => {
 		e.preventDefault()
@@ -171,6 +170,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 			}
 		})
 	}
+
 
 	const renderMemberRegister = () => {
 		if (joinMember === true) {
@@ -235,8 +235,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 
 	return (
 		<div>
-		<form autoComplete="off" onSubmit={e => handleSubmit(e, newQueue)} className={classes.root}>
-						<div>
+			<form autoComplete="off" onSubmit={e => handleSubmit(e, newQueue)} className={classes.root}>
 							<TextField
 								margin="normal"
 								fullWidth
@@ -244,13 +243,13 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 								id="name"
 								label="Name"
 								value={newQueue.name}
+								onChange={handleChange}
 								type="text"
 								required
 								autoFocus={true}
 							/>
-							<div>
 							<PhoneInput
-								country={'us'}
+								country={'sg'}
 								margin="normal"
 								fullWidth
 								variant="outlined"
@@ -261,9 +260,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 								onChange={handleChange}
 								autoFocus={true}
 							/>
-
 							{! valid && <p>Please enter a valid 10 digit number</p> }
-							</div>
 							<TextField
 								margin="normal"
 								fullWidth
@@ -272,12 +269,11 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 								label="Party Size"
 								type="number"
 								value={newQueue.paxNo}
-								// onChange={handleChange}
+								onChange={handleChange}
 								required
 								InputProps={{ inputProps: { min: 1, max: queueMaxPax } }}
 							/>
-
-							{/* <FormControlLabel
+								{/* <FormControlLabel
 								label="Join Member"
 								control={
 									<Checkbox
@@ -291,7 +287,6 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 								}
 							/>
 							{renderMemberRegister()} */}
-						</div>
 						<div className={classes.buttonWrapper}>
 							<Button onClick={handleClose} color="primary">
 								Cancel
