@@ -195,6 +195,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 				id="phoneNo"
 				label="Phone Number"
 				type="tel"
+				country="sg"
 				value={newQueue.phoneNo}
 				onChange={handleChange}
 				autoFocus={true}
