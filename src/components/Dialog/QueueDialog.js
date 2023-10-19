@@ -98,19 +98,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 
 	const validatePhoneNumber = phoneNo => {
 		const phoneNumberPattern = /^\d{10}$/
-		if (!phoneNumberPattern.test(phoneNo)) {
-			return {
-				valid: false,
-				errorMsg: 'Invalid phone number format',
-			}
-		}
-		const [countryCode, formattedNumber] = phoneNo.match(phoneNumberPattern)
-
-		return {
-			valid: true,
-			hasCountryCode: true,
-			formattedNumber: `+${countryCode}${formattedNumber}`,
-		}
+		return phoneNumberPattern.test(phoneNo)
 	}
 
 	const handleClickOpen = () => {
@@ -199,6 +187,9 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 				value={newQueue.phoneNo}
 				onChange={handleChange}
 				autoFocus={true}
+				inputProps={{
+					required: true,
+				}}
 			/>
 			{!valid && <p>Please enter a valid 10 digit number</p>}
 			<TextField
@@ -211,14 +202,14 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 				value={newQueue.paxNo}
 				onChange={handleChange}
 				required
-				InputProps={{ inputProps: { min: 1, max: queueMaxPax } }}
+				InputProps={{ inputProps: { min: 1, max: 10 } }}
 			/>
 
 			<div className={classes.buttonWrapper}>
 				<Button onClick={handleClose} color="primary">
 					Cancel
 				</Button>
-				<Button type="submit" color="primary" disabled={buttonHidden} onClick={handleSubmit}>
+				<Button type="submit" color="primary" disabled={buttonHidden}>
 					Add
 				</Button>
 			</div>
