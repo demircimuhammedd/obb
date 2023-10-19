@@ -24,6 +24,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-phone-input-2": "^2.15.1",
     "typeface-merriweather": "^0.0.72",
     "typeface-montserrat": "^0.0.75",
     "typography": "^0.16.19"

@@ -5,9 +5,11 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import TextField from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/core/styles'
-import { PhoneNumberFormat, PhoneNumberUtil } from 'google-libphonenumber'
 import React, { useState } from 'react'
 import { HOST, getOutletFullname, outletAbbr } from '../../utils/config'
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css'
+import './QueueDialog.css';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -53,6 +55,10 @@ const useStyles = makeStyles(theme => ({
 	memberIcon: {
 		cursor: 'pointer',
 	},
+	PhoneInput: {
+		minWidth: '100vw',
+		border: '5px solid pink'
+	},
 }))
 
 export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerErrorMsg, queueMaxPax }) {
@@ -80,36 +86,10 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 			label: 'Female',
 		},
 	]
-	// const [gender, setGender] = React.useState('male');
+	const [phoneNo, setPhoneNo] = useState('');
+	const [valid, setValid] = useState(true);
 	const [phoneErrorMsg, setPhoneErrorMsg] = useState('')
-
 	const classes = useStyles()
-
-	const validatePhoneNumber = phoneNo => {
-		let isValid = false
-		let hasCountryCode = false
-		let formattedNumber = ''
-		let errorMsg = ''
-
-		const phoneUtil = PhoneNumberUtil.getInstance()
-
-		try {
-			const parsedNumber = phoneUtil.parseAndKeepRawInput(phoneNo)
-			isValid = phoneUtil.isValidNumber(parsedNumber)
-			hasCountryCode = parsedNumber.hasCountryCode()
-			formattedNumber = phoneUtil.format(parsedNumber, PhoneNumberFormat.E164)
-
-			if (!hasCountryCode) {
-				errorMsg = 'Please include the country code.'
-			} else if (!isValid) {
-				errorMsg = 'Invalid phone number.'
-			}
-		} catch (e) {
-			errorMsg = e.message ? e.message : 'Invalid phone number.'
-		}
-
-		return { isValid, hasCountryCode, formattedNumber, errorMsg }
-	}
 
 	const handleClickOpen = () => {
 		setOpen(true)
@@ -129,26 +109,23 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 		})
 	}
 
-	const handleChange = event => {
+	const handleChange = (value) => {
 		const id = event.target.id
-		let phoneNo = event.target.value.trim()
-		if (phoneNo[0] !== '+') phoneNo = '+' + phoneNo
-		const { errorMsg } = validatePhoneNumber(phoneNo)
 		if (id === 'phoneNo') {
-			setPhoneErrorMsg(errorMsg)
-			setNewQueue({ ...newQueue, phoneNo: phoneNo })
+			setPhoneNo(value);
+			setValid(validatePhoneNumber(value));
 		}
-		// else if(id === 'validator'){
-		// 	setNewQueue({ ...newQueue, [id]: event.target.checked })
-		// }
 		else {
 			setNewQueue({ ...newQueue, [id]: event.target.value })
 		}
-		// setGender(event.target.value);
-		// console.log(event.target.value)
 		if (id === 'validator') {
 			setjoinMember(event.target.checked)
 		}
+	}
+
+	const validatePhoneNumber = (phoneNo) => {
+		const phoneNumberPattern = /^\d{11}$/;
+		return phoneNumberPattern.test(phoneNo);
 	}
 
 	const handleSubmit = (e, newQueue) => {
@@ -194,6 +171,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 		})
 	}
 
+
 	const renderMemberRegister = () => {
 		if (joinMember === true) {
 			return (
@@ -211,7 +189,6 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 						}}
 						required
 					/>
-					<br />
 					<br />
 					<TextField
 						fullWidth
@@ -258,8 +235,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 
 	return (
 		<div>
-		<form autoComplete="off" onSubmit={e => handleSubmit(e, newQueue)} className={classes.root}>
-						<div>
+			<form autoComplete="off" onSubmit={e => handleSubmit(e, newQueue)} className={classes.root}>
 							<TextField
 								margin="normal"
 								fullWidth
@@ -267,12 +243,13 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 								id="name"
 								label="Name"
 								value={newQueue.name}
-								type="text"
 								onChange={handleChange}
+								type="text"
 								required
 								autoFocus={true}
 							/>
-							<TextField
+							<PhoneInput
+								country={'sg'}
 								margin="normal"
 								fullWidth
 								variant="outlined"
@@ -281,11 +258,9 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 								type="tel"
 								value={newQueue.phoneNo}
 								onChange={handleChange}
-								helperText={phoneErrorMsg}
-								required
 								autoFocus={true}
-
 							/>
+							{! valid && <p>Please enter a valid 10 digit number</p> }
 							<TextField
 								margin="normal"
 								fullWidth
@@ -298,8 +273,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 								required
 								InputProps={{ inputProps: { min: 1, max: queueMaxPax } }}
 							/>
-
-							{/* <FormControlLabel
+								{/* <FormControlLabel
 								label="Join Member"
 								control={
 									<Checkbox
@@ -313,7 +287,6 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 								}
 							/>
 							{renderMemberRegister()} */}
-						</div>
 						<div className={classes.buttonWrapper}>
 							<Button onClick={handleClose} color="primary">
 								Cancel
