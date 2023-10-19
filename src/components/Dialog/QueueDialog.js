@@ -8,8 +8,9 @@ import { makeStyles } from '@material-ui/core/styles'
 import { PhoneNumberFormat, PhoneNumberUtil } from 'google-libphonenumber'
 import React, { useState } from 'react'
 import { HOST, getOutletFullname, outletAbbr } from '../../utils/config'
-import clsx from 'clsx'
-import classNames from 'classnames'
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css'
+import './QueueDialog.css';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -54,6 +55,10 @@ const useStyles = makeStyles(theme => ({
 	},
 	memberIcon: {
 		cursor: 'pointer',
+	},
+	PhoneInput: {
+		minWidth: '100vw',
+		border: '5px solid pink'
 	},
 }))
 
@@ -105,15 +110,13 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 		})
 	}
 
-	const handleChange = event => {
-		const id = event.target.id
-		const input = event.target.value;
-		setPhoneNo(input);
-		setValid(validatePhoneNumber(input));
+	const handleChange = (value) => {
+		setPhoneNo(value);
+		setValid(validatePhoneNumber(value));
 	};
 
 	const validatePhoneNumber = (phoneNo) => {
-		const phoneNumberPattern = /^\d{10}$/;
+		const phoneNumberPattern = /^\d{11}$/;
 		return phoneNumberPattern.test(phoneNo);
 	}
 				// else {
@@ -187,7 +190,6 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 						required
 					/>
 					<br />
-					<br />
 					<TextField
 						fullWidth
 						variant="outlined"
@@ -243,25 +245,25 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 								label="Name"
 								value={newQueue.name}
 								type="text"
-								onChange={handleChange}
 								required
 								autoFocus={true}
 							/>
-							<TextField
-
+							<div>
+							<PhoneInput
+								country={'us'}
 								margin="normal"
 								fullWidth
 								variant="outlined"
 								id="phoneNo"
 								label="Phone Number"
 								type="tel"
-								value={phoneNo}
+								value={newQueue.phoneNo}
 								onChange={handleChange}
-								required
 								autoFocus={true}
-
 							/>
+
 							{! valid && <p>Please enter a valid 10 digit number</p> }
+							</div>
 							<TextField
 								margin="normal"
 								fullWidth
@@ -270,7 +272,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 								label="Party Size"
 								type="number"
 								value={newQueue.paxNo}
-								onChange={handleChange}
+								// onChange={handleChange}
 								required
 								InputProps={{ inputProps: { min: 1, max: queueMaxPax } }}
 							/>

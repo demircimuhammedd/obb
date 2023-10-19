@@ -1,0 +1,18 @@
+.react-tel-input .form-control {
+    position: relative;
+    font-size: 14px;
+    letter-spacing: .01rem;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-left: 48px;
+    margin-left: 20px;
+    background: #c82b2a;
+    border: none;
+    border-radius: 5px;
+    line-height: 25px;
+    height: 35px;
+    width: 500px;
+    padding: 25px;
+    font-size: 30px;
+    color: #fafafa;
+}
