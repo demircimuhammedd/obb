@@ -172,6 +172,7 @@ input#paxNo {
     padding: 10px 0;
     color: #fafafa;
     margin: 8px auto;
+    border-radius: 5px;
 }
 
 .MuiInputBase-root {
