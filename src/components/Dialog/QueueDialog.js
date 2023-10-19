@@ -108,9 +108,10 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 
 	const handleClose = () => {
 		setOpen(false)
+
 		setNewQueue({
 			name: '',
-			phoneNo: '',
+			phoneNo: '+65',
 			paxNo: '',
 			birthDate: '',
 			gender: 'male',
