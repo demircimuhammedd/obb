@@ -81,24 +81,25 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 	const [open, setOpen] = useState(false)
 	const [phoneNo, setPhoneNo] = useState('')
 
-	const handleChange = value => {
+	const handleChange = (value) => {
 		const id = event.target.id
-		if (id === 'phoneNo') {
-			setPhoneNo(value)
-			setValid(validatePhoneNumber(value))
-		} else {
-			setNewQueue({ ...newQueue, [id]: event.target.value })
+		if (id == 'phoneNo') {
+			setPhoneNo(id);
+			setValid(validatePhoneNumber(id));
 		}
 		if (id === 'validator') {
 			setjoinMember(event.target.checked)
+		}
+		else {
+			setNewQueue({ ...newQueue, [id]: event.target.value })
 		}
 		console.log('HandleChange event:', event)
 		console.log('New Queue:', newQueue)
 	}
 
 	const validatePhoneNumber = phoneNo => {
-		const phoneNumberPattern = /^\d{10}$/
-		return phoneNumberPattern.test(phoneNo)
+		const phoneNumberPattern = /^\d{10}$/;
+		return phoneNumberPattern.test(phoneNo);
 	}
 
 	const handleClickOpen = () => {
