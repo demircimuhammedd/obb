@@ -76,6 +76,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 	})
 	const [joinMember, setjoinMember] = useState(false)
 	const [valid, setValid] = useState(true)
+	const [phoneTouched, setPhoneTouched] = useState(false);
 	const [phoneErrorMsg, setPhoneErrorMsg] = useState('')
 	const classes = useStyles()
 	const [open, setOpen] = useState(false)
@@ -93,6 +94,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 
 	const validatePhoneNumber = phoneNo => {
 		const phoneNumberPattern = /^(?:\+\d{1,3}[-.\s]?)?\d{10,}$/;
+		// let valid = phoneNo.phoneNumberPattern
 		return phoneNumberPattern.test(phoneNo);
 	}
 
@@ -105,7 +107,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 
 		setNewQueue({
 			name: '',
-			phoneNo: '+65',
+			phoneNo: ' ',
 			paxNo: '',
 			birthDate: '',
 			gender: 'male',
@@ -117,9 +119,11 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 
 	const handleSubmit = (e, newQueue) => {
 		e.preventDefault()
-		if (!valid) {
-			setPhoneErrorMsg(phoneErrorMsg)
-			return
+		
+		if (phoneTouched && !valid) {
+			setPhoneErrorMsg("Please enter a valid phone number.");
+			return;
+		
 		}
 		const updatedQueue = {
 			...newQueue,
@@ -184,9 +188,9 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 				value={newQueue.phoneNo}
 				onChange={(value) => handleChange(value, 'phoneNo')}
 				autoFocus={true}
-				inputProps={{
-					required: true,
-				}}
+				onBlur={() => setPhoneTouched(true)}
+				helperText={phoneErrorMsg}
+				required
 			/>
 			{!valid && <p>Please enter a valid phone number</p>}
 			<TextField
