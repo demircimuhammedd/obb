@@ -76,26 +76,26 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 	})
 	const [joinMember, setjoinMember] = useState(false)
 	const [valid, setValid] = useState(true)
-	const [phoneTouched, setPhoneTouched] = useState(false);
+	const [phoneTouched, setPhoneTouched] = useState(false)
 	const [phoneErrorMsg, setPhoneErrorMsg] = useState('')
 	const classes = useStyles()
 	const [open, setOpen] = useState(false)
 	const [phoneNo, setPhoneNo] = useState('')
 
-	const handleChange = (value, id) => {	  
+	const handleChange = (value, id) => {
 		if (id === 'phoneNo') {
-		  const phoneNo = value.replace(/\D/g, '');
-		  setPhoneNo(phoneNo);
-		  setValid(validatePhoneNumber(phoneNo));
+			const phoneNo = value.replace(/\D/g, '')
+			setPhoneNo(phoneNo)
+			setValid(validatePhoneNumber(phoneNo))
 		} else {
-		  setNewQueue({ ...newQueue, [id]: value });
+			setNewQueue({ ...newQueue, [id]: value })
 		}
-	  }
+	}
 
 	const validatePhoneNumber = phoneNo => {
-		const phoneNumberPattern = /^(?:\+\d{1,3}[-.\s]?)?\d{10,}$/;
+		const phoneNumberPattern = /^(?:\+\d{1,3}[-.\s]?)?\d{10,}$/
 		// let valid = phoneNo.phoneNumberPattern
-		return phoneNumberPattern.test(phoneNo);
+		return phoneNumberPattern.test(phoneNo)
 	}
 
 	const handleClickOpen = () => {
@@ -119,11 +119,10 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 
 	const handleSubmit = (e, newQueue) => {
 		e.preventDefault()
-		
+
 		if (phoneTouched && !valid) {
-			setPhoneErrorMsg("Please enter a valid phone number.");
-			return;
-		
+			setPhoneErrorMsg('Please enter a valid phone number.')
+			return
 		}
 		const updatedQueue = {
 			...newQueue,
@@ -170,7 +169,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 				id="name"
 				label="Name"
 				value={newQueue.name}
-				onChange={(e) => handleChange(e.target.value, 'name')}
+				onChange={e => handleChange(e.target.value, 'name')}
 				type="text"
 				required
 				autoFocus={true}
@@ -186,7 +185,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 				country="sg"
 				international
 				value={newQueue.phoneNo}
-				onChange={(value) => handleChange(value, 'phoneNo')}
+				onChange={value => handleChange(value, 'phoneNo')}
 				autoFocus={true}
 				onBlur={() => setPhoneTouched(true)}
 				helperText={phoneErrorMsg}
@@ -201,7 +200,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 				label="Party Size"
 				type="number"
 				value={newQueue.paxNo}
-				onChange={(e) => handleChange(e.target.value, 'paxNo')}
+				onChange={e => handleChange(e.target.value, 'paxNo')}
 				required
 				InputProps={{ inputProps: { min: 1, max: 10 } }}
 			/>
