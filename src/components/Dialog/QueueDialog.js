@@ -81,21 +81,15 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 	const [open, setOpen] = useState(false)
 	const [phoneNo, setPhoneNo] = useState('')
 
-	const handleChange = (value) => {
-		const id = event.target.id
-		if (id == 'phoneNo') {
-			setPhoneNo(id);
-			setValid(validatePhoneNumber(id));
+	const handleChange = (value, id) => {	  
+		if (id === 'phoneNo') {
+		  const phoneNo = value.replace(/\D/g, '');
+		  setPhoneNo(phoneNo);
+		  setValid(validatePhoneNumber(phoneNo));
+		} else {
+		  setNewQueue({ ...newQueue, [id]: value });
 		}
-		if (id === 'validator') {
-			setjoinMember(event.target.checked)
-		}
-		else {
-			setNewQueue({ ...newQueue, [id]: event.target.value })
-		}
-		console.log('HandleChange event:', event)
-		console.log('New Queue:', newQueue)
-	}
+	  }
 
 	const validatePhoneNumber = phoneNo => {
 		const phoneNumberPattern = /^\d{10}$/;
@@ -172,7 +166,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 				id="name"
 				label="Name"
 				value={newQueue.name}
-				onChange={handleChange}
+				onChange={(e) => handleChange(e.target.value, 'name')}
 				type="text"
 				required
 				autoFocus={true}
@@ -185,9 +179,10 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 				id="phoneNo"
 				label="Phone Number"
 				type="tel"
-				country="sg"
+				defaultCountry="sg"
+				international
 				value={newQueue.phoneNo}
-				onChange={handleChange}
+				onChange={(value) => handleChange(value, 'phoneNo')}
 				autoFocus={true}
 				inputProps={{
 					required: true,
@@ -202,7 +197,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 				label="Party Size"
 				type="number"
 				value={newQueue.paxNo}
-				onChange={handleChange}
+				onChange={(e) => handleChange(e.target.value, 'paxNo')}
 				required
 				InputProps={{ inputProps: { min: 1, max: 10 } }}
 			/>
