@@ -28,12 +28,7 @@ function CustomInput({ ...props }) {
 		[' ' + classes.labelRootError]: error,
 		[' ' + classes.labelRootSuccess]: success && !error,
 	})
-	const underlineClasses = classNames({
-		[classes.underlineError]: error,
-		[classes.underlineSuccess]: success && !error,
-		[classes.underline]: true,
-		[classes.whiteUnderline]: white,
-	})
+	
 	const marginTop = classNames({
 		[inputRootCustomClasses]: inputRootCustomClasses !== undefined,
 	})
@@ -59,7 +54,6 @@ function CustomInput({ ...props }) {
 					input: inputClasses,
 					root: marginTop,
 					disabled: classes.disabled,
-					underline: underlineClasses,
 				}}
 				id={id}
 				{...inputProps}

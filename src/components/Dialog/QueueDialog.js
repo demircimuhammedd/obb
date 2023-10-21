@@ -55,10 +55,6 @@ const useStyles = makeStyles(theme => ({
 	memberIcon: {
 		cursor: 'pointer',
 	},
-	PhoneInput: {
-		minWidth: '100vw',
-		border: '5px solid pink',
-	},
 }))
 
 export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerErrorMsg, queueMaxPax }) {
@@ -76,30 +72,26 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 	})
 	const [joinMember, setjoinMember] = useState(false)
 	const [valid, setValid] = useState(true)
+	const [phoneTouched, setPhoneTouched] = useState(false)
 	const [phoneErrorMsg, setPhoneErrorMsg] = useState('')
 	const classes = useStyles()
 	const [open, setOpen] = useState(false)
 	const [phoneNo, setPhoneNo] = useState('')
 
-	const handleChange = (value) => {
-		const id = event.target.id
-		if (id == 'phoneNo') {
-			setPhoneNo(id);
-			setValid(validatePhoneNumber(id));
+	const handleChange = (value, id) => {
+		if (id === 'phoneNo') {
+			const phoneNo = value.replace(/\D/g, '')
+			setPhoneNo(phoneNo)
+			setValid(validatePhoneNumber(phoneNo))
+		} else {
+			setNewQueue({ ...newQueue, [id]: value })
 		}
-		if (id === 'validator') {
-			setjoinMember(event.target.checked)
-		}
-		else {
-			setNewQueue({ ...newQueue, [id]: event.target.value })
-		}
-		console.log('HandleChange event:', event)
-		console.log('New Queue:', newQueue)
 	}
 
 	const validatePhoneNumber = phoneNo => {
-		const phoneNumberPattern = /^\d{10}$/;
-		return phoneNumberPattern.test(phoneNo);
+		const phoneNumberPattern = /^(?:\+\d{1,3}[-.\s]?)?\d{10,}$/
+		// let valid = phoneNo.phoneNumberPattern
+		return phoneNumberPattern.test(phoneNo)
 	}
 
 	const handleClickOpen = () => {
@@ -111,7 +103,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 
 		setNewQueue({
 			name: '',
-			phoneNo: '+65',
+			phoneNo: ' ',
 			paxNo: '',
 			birthDate: '',
 			gender: 'male',
@@ -123,8 +115,9 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 
 	const handleSubmit = (e, newQueue) => {
 		e.preventDefault()
-		if (!valid) {
-			setPhoneErrorMsg(phoneErrorMsg)
+
+		if (phoneTouched && !valid) {
+			setPhoneErrorMsg('Please enter a valid phone number.')
 			return
 		}
 		const updatedQueue = {
@@ -167,42 +160,41 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 		<form autoComplete="off" onSubmit={e => handleSubmit(e, newQueue)} className={classes.root}>
 			<TextField
 				margin="normal"
-				fullWidth
-				variant="outlined"
 				id="name"
 				label="Name"
 				value={newQueue.name}
-				onChange={handleChange}
+				onChange={e => handleChange(e.target.value, 'name')}
 				type="text"
 				required
 				autoFocus={true}
 			/>
-			<label>Phone Input</label>
+			<label>Phone Number *</label>
 			<PhoneInput
 				margin="normal"
 				fullWidth
+				placeholder='Phone Number'
 				variant="outlined"
 				id="phoneNo"
 				label="Phone Number"
 				type="tel"
 				country="sg"
+				international
 				value={newQueue.phoneNo}
-				onChange={handleChange}
+				onChange={value => handleChange(value, 'phoneNo')}
 				autoFocus={true}
-				inputProps={{
-					required: true,
-				}}
+				onBlur={() => setPhoneTouched(true)}
+				helperText={phoneErrorMsg}
+				required
 			/>
-			{!valid && <p>Please enter a valid 10 digit number</p>}
+			{!valid && <p>Please enter a valid phone number</p>}
 			<TextField
 				margin="normal"
 				fullWidth
-				variant="outlined"
 				id="paxNo"
 				label="Party Size"
 				type="number"
 				value={newQueue.paxNo}
-				onChange={handleChange}
+				onChange={e => handleChange(e.target.value, 'paxNo')}
 				required
 				InputProps={{ inputProps: { min: 1, max: 10 } }}
 			/>
