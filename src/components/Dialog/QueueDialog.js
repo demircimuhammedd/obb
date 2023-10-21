@@ -55,10 +55,6 @@ const useStyles = makeStyles(theme => ({
 	memberIcon: {
 		cursor: 'pointer',
 	},
-	PhoneInput: {
-		minWidth: '100vw',
-		border: '5px solid pink',
-	},
 }))
 
 export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerErrorMsg, queueMaxPax }) {
@@ -164,8 +160,6 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 		<form autoComplete="off" onSubmit={e => handleSubmit(e, newQueue)} className={classes.root}>
 			<TextField
 				margin="normal"
-				fullWidth
-				variant="outlined"
 				id="name"
 				label="Name"
 				value={newQueue.name}
@@ -174,10 +168,11 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 				required
 				autoFocus={true}
 			/>
-			<label>Phone Input</label>
+			<label>Phone Number *</label>
 			<PhoneInput
 				margin="normal"
 				fullWidth
+				placeholder='Phone Number'
 				variant="outlined"
 				id="phoneNo"
 				label="Phone Number"
@@ -195,7 +190,6 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 			<TextField
 				margin="normal"
 				fullWidth
-				variant="outlined"
 				id="paxNo"
 				label="Party Size"
 				type="number"

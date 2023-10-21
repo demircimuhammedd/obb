@@ -10,12 +10,13 @@ body {
 }
 
 .QrcodePage-qrcodeCard-14 {
-    padding: 0;
+    padding: 0px;
 }
 
 .makeStyles-card-29 {
     margin-top: 10px;
 }
+
 
 h3.QrcodePage-divider-10 {
     font-size: 14px;
@@ -171,8 +172,35 @@ input#paxNo {
     background: #eb2828d3;
     padding: 10px 0;
     color: #fafafa;
-    margin: 8px auto;
+    border-color: none;
     border-radius: 5px;
+}
+
+input#name:focus,
+input#phoneNo,
+input#paxNo:focus {
+    border: 5px solid #fafafa;
+}
+
+.MuiInputLabel-shrink {
+    transform: translate(0, -14.5px) scale(0.75);
+    transform-origin: top left;
+}
+
+.MuiInput-underline {
+    border-color: transparent;
+}
+
+.MuiInput-underline:hover:not(.Mui-disabled):before {
+    border-bottom: none;
+}
+
+.MuiInput-underline {
+    border-bottom: none;
+}
+
+.MuiInput-underline:after {
+    border-color: tr;
 }
 
 .MuiInputBase-root {
