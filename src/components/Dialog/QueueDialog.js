@@ -92,7 +92,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 	  }
 
 	const validatePhoneNumber = phoneNo => {
-		const phoneNumberPattern = /^\d{10}$/;
+		const phoneNumberPattern = /^(?:\+\d{1,3}[-.\s]?)?\d{10,}$/;
 		return phoneNumberPattern.test(phoneNo);
 	}
 
@@ -179,7 +179,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 				id="phoneNo"
 				label="Phone Number"
 				type="tel"
-				defaultCountry="sg"
+				country="sg"
 				international
 				value={newQueue.phoneNo}
 				onChange={(value) => handleChange(value, 'phoneNo')}
@@ -188,7 +188,7 @@ export default function QueueDialog({ setQueueNumber, serverErrorMsg, setServerE
 					required: true,
 				}}
 			/>
-			{!valid && <p>Please enter a valid 10 digit number</p>}
+			{!valid && <p>Please enter a valid phone number</p>}
 			<TextField
 				margin="normal"
 				fullWidth
